@@ -16,7 +16,7 @@ public class StocksController {
     }
 
     @GetMapping("/getStock/{id}")
-    public ResponseEntity<Stocks> getStock(@PathVariable long id) {
+    public ResponseEntity<Stocks> getStock(@PathVariable Long id) {
         Stocks stocks = stocksService.returnStocksById(id);
         return ResponseEntity.ok(stocks);
     }
