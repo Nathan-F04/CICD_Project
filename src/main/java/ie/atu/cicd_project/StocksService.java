@@ -10,7 +10,7 @@ public class StocksService {
         this.stocksRepository = stocksRepository;
     }
 
-    public Stocks returnStocksById(Long id) {
-        return stocksRepository.findstockSharesBystockId(id);
+    public Stocks returnStocksById(long id) {
+        return stocksRepository.findBystockId(id);
     }
 }
