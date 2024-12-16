@@ -32,3 +32,7 @@ public class Person {
     @PositiveOrZero(message = "Stock portfolio must be positive")
     private String stock_portfolio;
 }
+
+/*
+ long personId, String name, String email,  String password, String bankDetails, String stock_portfolio;
+ */
