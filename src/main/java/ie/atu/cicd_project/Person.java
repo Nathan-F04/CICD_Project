@@ -21,16 +21,16 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long person_Id;
+    @NotNull(message = "You must add an id")
+    private Long personId;
     @NotNull(message = "Name must not be blank")
-    String Name;
+    private String name;
     @Email(message = "Email must be in valid format")
-    String Email;
+    private String email;
     @NotNull(message = "Password must not be blank")
-    String Password;
+    private String password;
     @NotNull(message = "Bank details must not be blank")
-    String Bank_details;
+    private String bankDetails;
     @PositiveOrZero(message = "Stock portfolio must be positive")
-    String Stock_portfolio;
-
+    private String stock_portfolio;
 }
