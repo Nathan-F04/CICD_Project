@@ -1,9 +1,6 @@
 package ie.atu.cicd_project;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -17,12 +14,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
+@Table
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "You must add an id")
-    private Long personId;
+    private long personId;
     @NotNull(message = "Name must not be blank")
     private String name;
     @Email(message = "Email must be in valid format")
