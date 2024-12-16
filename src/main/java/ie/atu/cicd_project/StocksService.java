@@ -11,6 +11,6 @@ public class StocksService {
     }
 
     public Stocks returnStocksById(Long id) {
-        return stocksRepository.findSharesBystockId(id);
+        return stocksRepository.findstockSharesBystockId(id);
     }
 }
