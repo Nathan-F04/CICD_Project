@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface StocksRepository extends JpaRepository<Stocks, Long> {
-    Stocks findSharesById(Long id);
+    Stocks findSharesById(long id);
 }
