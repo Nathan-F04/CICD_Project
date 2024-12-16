@@ -1,5 +1,6 @@
 package ie.atu.cicd_project;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -9,9 +10,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//Add entity and table
+@Entity
 public class Stocks {
-    //set primary key
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "stockId can't be a null value.")
     private long stockId;
     @NotEmpty(message = "stockName can't be empty.")
