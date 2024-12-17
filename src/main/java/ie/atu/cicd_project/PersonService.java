@@ -1,5 +1,6 @@
 package ie.atu.cicd_project;
 
+import lombok.Data;
 import org.springframework.stereotype.Service;
 import java.util.Objects;
 

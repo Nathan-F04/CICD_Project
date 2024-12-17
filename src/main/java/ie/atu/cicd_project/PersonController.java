@@ -25,7 +25,7 @@ public class PersonController {
         return new ResponseEntity<>("Signed up successfully", HttpStatus.OK);
     }
     //sign in
-    @GetMapping("/signUp/{id}")
+    @GetMapping("/signUp/{id}/{password}")
     public ResponseEntity<String>signIn(@Valid @PathVariable long id, @Valid @PathVariable String password) {
         personService.signInPerson(id, password);
         return new ResponseEntity<>("Signed up successfully", HttpStatus.OK);
