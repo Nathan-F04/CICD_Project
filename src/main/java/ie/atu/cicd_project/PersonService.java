@@ -1,10 +1,7 @@
 package ie.atu.cicd_project;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PersonService {
@@ -22,13 +19,16 @@ public class PersonService {
         personRepository.save(person);
     }
     //sign in
-    public void signInPerson(Person person) {
-        Person testperson =  personRepository.findBypersonId(person.getPersonId());
-        //getters for comparison if statements
-
+    public void signInPerson(long id, String password) {
+        Person verifyPerson = personRepository.findBypersonId(id);
+        String verifyPassword = verifyPerson.getPassword();
+        if (verifyPassword.equals(password)) {
+            System.out.println("Passwords match");
+        }
     }
+
     //delete
-    public void DeletePerson(Person person) {
+    public void DeleteAccount(Person person) {
         //delete person from db
         personRepository.delete(person);
     }

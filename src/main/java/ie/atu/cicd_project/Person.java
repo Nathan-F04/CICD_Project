@@ -2,21 +2,16 @@ package ie.atu.cicd_project;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Generated;
-import lombok.NoArgsConstructor;
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
+import lombok.*;
 @Entity
-@Table
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Person {
 
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "You must add an id")
@@ -32,7 +27,3 @@ public class Person {
     @PositiveOrZero(message = "Stock portfolio must be positive")
     private String stock_portfolio;
 }
-
-/*
- long personId, String name, String email,  String password, String bankDetails, String stock_portfolio;
- */

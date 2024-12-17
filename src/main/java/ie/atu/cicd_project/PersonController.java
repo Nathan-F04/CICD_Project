@@ -25,9 +25,9 @@ public class PersonController {
         return new ResponseEntity<>("Signed up successfully", HttpStatus.OK);
     }
     //sign in
-    @GetMapping
-    public ResponseEntity<String>signIn(@Valid @RequestBody Person person) {
-        personService.signInPerson(person);
+    @GetMapping("/signUp/{id}")
+    public ResponseEntity<String>signIn(@Valid @PathVariable long id, @Valid @PathVariable String password) {
+        personService.signInPerson(id, password);
         return new ResponseEntity<>("Signed up successfully", HttpStatus.OK);
     }
     //get request to check details
@@ -35,7 +35,7 @@ public class PersonController {
     //Delete account
     @DeleteMapping("/removeAccount")
     public ResponseEntity<String>RemoveAccount(@Valid @RequestBody Person person){
-        personService.DeletePerson(person);
+        personService.DeleteAccount(person);
         return new ResponseEntity<>("Deleted account successfully", HttpStatus.OK);
     }
     //update user details
