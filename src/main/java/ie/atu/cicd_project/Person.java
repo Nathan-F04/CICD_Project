@@ -29,4 +29,12 @@ public class Person {
     @PositiveOrZero(message = "Stock portfolio must be positive")
     private String stock_portfolio;
 
+    //Constructor for data loader
+    public Person(String name, String email, String password, String bankDetails, String stock_portfolio) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.bankDetails = bankDetails;
+        this.stock_portfolio = stock_portfolio;
+    }
 }

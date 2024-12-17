@@ -5,8 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 public class PersonController {
@@ -25,7 +23,7 @@ public class PersonController {
         return new ResponseEntity<>("Signed up successfully", HttpStatus.OK);
     }
     //sign in
-    @GetMapping("/signUp/{id}/{password}")
+    @GetMapping("/signIn/{id}/{password}")
     public ResponseEntity<String>signIn(@Valid @PathVariable long id, @Valid @PathVariable String password) {
         personService.signInPerson(id, password);
         return new ResponseEntity<>("Signed up successfully", HttpStatus.OK);
