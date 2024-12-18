@@ -22,5 +22,5 @@ public class Stocks {
     @NotNull(message = "stockShares can't be a null value.")
     private int stockShares;
     @NotNull(message = "personId can't be a null value.")
-    private long personId;
+    private String name;
 }

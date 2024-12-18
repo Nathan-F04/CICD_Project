@@ -23,5 +23,5 @@ public class StockValue {
     @PositiveOrZero(message = "Stock value must be greater than zero")
     private int stockShareValue;
     @NotNull(message = "You must add a stock id")
-    private long stockId;
+    private String stockName;
 }

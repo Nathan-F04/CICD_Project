@@ -9,9 +9,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class PersonController {
 
+    //openfeign DI
+    private final PersonToStocks personToStocks;
     //Person service DI
     private final PersonService personService;
-    public PersonController(PersonService personService) {
+
+    public PersonController(PersonToStocks personToStocks, PersonService personService) {
+        this.personToStocks = personToStocks;
         this.personService = personService;
     }
 
@@ -20,13 +24,16 @@ public class PersonController {
     @PostMapping("/signUp")
     public ResponseEntity<?>signUp(@Valid @RequestBody Person person) {
         personService.signUpPerson(person);
+        //sample feign code
+        //String details =feignInter.makePayment(person);
+        //System.out.println(details);
         return new ResponseEntity<>("Signed up successfully", HttpStatus.OK);
     }
     //sign in
     @GetMapping("/signIn/{name}/{password}")
     public ResponseEntity<?>signIn(@Valid @PathVariable String name, @Valid @PathVariable String password) {
         personService.signInPerson(name, password);
-        return new ResponseEntity<>("Signed up successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Signed in successfully", HttpStatus.OK);
     }
     //get request to check details
     @GetMapping("/viewProfile/{name}/{password}")
@@ -45,5 +52,13 @@ public class PersonController {
     public ResponseEntity<?>EditProfile(@Valid @PathVariable String name, @Valid @PathVariable String password, @Valid @RequestBody Person personEdit) {
         personService.editPersonProfile(name, password, personEdit);
         return new ResponseEntity<>("Edited account successfully", HttpStatus.OK);
+    }
+
+    //enter a password and name
+    //cal func
+    @GetMapping("/PortfolioValue/{name}/{password}")
+    public String portfolioValue(@Valid @PathVariable String name, @Valid @PathVariable String password){
+        String value = personService.myPortfolioValue(name, password);
+        return "Portfolio value is" + value;
     }
 }

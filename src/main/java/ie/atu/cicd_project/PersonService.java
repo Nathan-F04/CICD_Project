@@ -7,9 +7,11 @@ import java.util.Optional;
 public class PersonService {
 
     private final PersonRepository personRepository;
+    private final PersonToStocks personToStocks;
 
-    public PersonService(PersonRepository personRepository) {
+    public PersonService(PersonRepository personRepository, PersonToStocks personToStocks) {
         this.personRepository = personRepository;
+        this.personToStocks = personToStocks;
     }
 
     //Actually get the requests done here
@@ -83,5 +85,27 @@ public class PersonService {
     public void DeleteAccount(Person person) {
         //delete person from db
         personRepository.delete(person);
+    }
+
+    //take email and password and if correct, call other func passing the name
+    public String myPortfolioValue(String name, String password) {
+        Optional<Person> verifyPerson = personRepository.findByName(name);
+
+        if(verifyPerson.isPresent()){
+            Person existingPerson = verifyPerson.get();
+            String verifyPassword = existingPerson.getPassword();
+            if (verifyPassword.equals(password)) {
+                System.out.println("Passwords match");
+                return personToStocks.stockFindVal(name);
+
+            }else {
+                //change to actual error handling
+                System.out.println("Error editing person");
+                return "null";
+            }
+        }else{
+            System.out.println("Error editing person, person may not exist");
+            return "null";
+        }
     }
 }
