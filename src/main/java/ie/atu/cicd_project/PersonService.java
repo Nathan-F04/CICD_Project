@@ -20,11 +20,24 @@ public class PersonService {
         personRepository.save(person);
     }
     //sign in
-    public void signInPerson(long id, String password) {
-        Person verifyPerson = personRepository.findBypersonId(id);
+    public void signInPerson(String name, String password) {
+        Person verifyPerson = personRepository.findByname(name);
         String verifyPassword = verifyPerson.getPassword();
         if (verifyPassword.equals(password)) {
             System.out.println("Passwords match");
+        }
+    }
+
+    //View profile
+    public Person viewPersonProfile(String name, String password) {
+        Person verifyPerson = personRepository.findByname(name);
+        String verifyPassword = verifyPerson.getPassword();
+        if (verifyPassword.equals(password)) {
+            System.out.println("Passwords match");
+            return verifyPerson;
+        }else {
+            //change to actual error handling
+            return verifyPerson;
         }
     }
 
