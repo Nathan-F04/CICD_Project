@@ -18,30 +18,32 @@ public class PersonController {
     //Listen for requests and calls the following methods:
     //sign up
     @PostMapping("/signUp")
-    public ResponseEntity<String>signUp(@Valid @RequestBody Person person) {
+    public ResponseEntity<?>signUp(@Valid @RequestBody Person person) {
         personService.signUpPerson(person);
         return new ResponseEntity<>("Signed up successfully", HttpStatus.OK);
     }
     //sign in
-    @GetMapping("/signIn/{id}/{password}")
-    public ResponseEntity<String>signIn(@Valid @PathVariable long id, @Valid @PathVariable String password) {
-        personService.signInPerson(id, password);
+    @GetMapping("/signIn/{name}/{password}")
+    public ResponseEntity<?>signIn(@Valid @PathVariable String name, @Valid @PathVariable String password) {
+        personService.signInPerson(name, password);
         return new ResponseEntity<>("Signed up successfully", HttpStatus.OK);
     }
     //get request to check details
-
+    @GetMapping("/viewProfile/{name}/{password}")
+    public ResponseEntity<?>viewProfile(@Valid @PathVariable String name, @Valid @PathVariable String password) {
+        Person person = personService.viewPersonProfile(name, password);
+        return ResponseEntity.ok(person);
+    }
     //Delete account
     @DeleteMapping("/removeAccount")
-    public ResponseEntity<String>RemoveAccount(@Valid @RequestBody Person person){
+    public ResponseEntity<?>RemoveAccount(@Valid @RequestBody Person person){
         personService.DeleteAccount(person);
         return new ResponseEntity<>("Deleted account successfully", HttpStatus.OK);
     }
     //update user details
-    //put
-    //change password
-    //put
-    //change email
-    //put
-    //change bank details
-    //put
+    @PutMapping("/editProfile/{name}/{password}")
+    public ResponseEntity<?>EditProfile(@Valid @PathVariable String name, @Valid @PathVariable String password, @Valid @RequestBody Person personEdit) {
+        personService.editPersonProfile(name, password, personEdit);
+        return new ResponseEntity<>("Edited account successfully", HttpStatus.OK);
+    }
 }
