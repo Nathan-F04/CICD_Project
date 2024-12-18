@@ -11,7 +11,7 @@ public class DataLoader implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws Exception{
         //Insert data here
         Person testData1 = new Person("Paul" , "paul@atu.ie","pass1", "AIB", "1");
         Person testData2 = new Person("Nathan" , "nathan@atu.ie","pass2", "AIB", "2");

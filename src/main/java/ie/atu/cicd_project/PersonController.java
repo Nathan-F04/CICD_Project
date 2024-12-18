@@ -29,7 +29,7 @@ public class PersonController {
         return new ResponseEntity<>("Signed up successfully", HttpStatus.OK);
     }
     //get request to check details
-    @GetMapping("/signIn/{name}/{password}")
+    @GetMapping("/viewProfile/{name}/{password}")
     public ResponseEntity<?>viewProfile(@Valid @PathVariable String name, @Valid @PathVariable String password) {
         Person person = personService.viewPersonProfile(name, password);
         return ResponseEntity.ok(person);
@@ -41,11 +41,9 @@ public class PersonController {
         return new ResponseEntity<>("Deleted account successfully", HttpStatus.OK);
     }
     //update user details
-    //put
-    //change password
-    //put
-    //change email
-    //put
-    //change bank details
-    //put
+    @PutMapping("/editProfile/{name}/{password}")
+    public ResponseEntity<?>EditProfile(@Valid @PathVariable String name, @Valid @PathVariable String password, @Valid @RequestBody Person personEdit) {
+        personService.editPersonProfile(name, password, personEdit);
+        return new ResponseEntity<>("Edited account successfully", HttpStatus.OK);
+    }
 }
