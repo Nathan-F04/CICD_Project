@@ -25,7 +25,7 @@ public class StocksController {
     //make a way to call method that finds by name make obj, get stock name and stock shares
 
 
-        @GetMapping("stockFindVal")
+        @GetMapping
         public void stockFindVal(String name) {
             stocksService.returnByName(name);
         }

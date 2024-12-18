@@ -12,7 +12,7 @@ public class StockValueController {
         this.stockValueService = stockValueService;
     }
 
-    @GetMapping
+    @GetMapping("/getStockVal")
     public void portfolioFromStockVal(int stockShares, String stockName){
         stockValueService.portfolioResult(stockShares, stockName);
     }
