@@ -1,5 +1,6 @@
 package ie.atu.cicd_project;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +14,32 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public ResponseEntity<Account> returnAccBal(String name) {
-        Account account = accountRepository.findByName(name);
+    public ResponseEntity<?> returnAccBal(String name) {
+        Optional<Account> account = accountRepository.findByName(name);
+        if(account.isPresent()) {
+            return ResponseEntity.ok(account);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not Found");
+        }
+    }
+
+    public ResponseEntity<?> returnAccStock(String name) {
+        Optional<Account> account = accountRepository.findByName(name);
         return ResponseEntity.ok(account);
     }
 
-    public ResponseEntity<Account> returnAccStock(String name) {
-        Account account = accountRepository.findByName(name);
-        return ResponseEntity.ok(account);
+    public ResponseEntity<?> addBal(String name, float bankBal) {
+        Optional<Account> account = accountRepository.findByName(name);
+        if(account.isPresent()) {
+            Account accountCurrent = account.get();
+            float bal = accountCurrent.getBankBal() + bankBal;
+            accountCurrent.setBankBal(bal);
+            accountRepository.save(accountCurrent);
+            return ResponseEntity.ok(accountCurrent);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not Found");
+        }
     }
 }
