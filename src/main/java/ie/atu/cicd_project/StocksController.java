@@ -21,5 +21,14 @@ public class StocksController {
         return ResponseEntity.ok(stocks);
     }
 
+    //func with person name here
+    //make a way to call method that finds by name make obj, get stock name and stock shares
+
+
+        @GetMapping
+        public void stockFindVal(String name) {
+            stocksService.returnByName(name);
+        }
+
 
 }

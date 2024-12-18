@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class PersonController {
-
     //Person service DI
     private final PersonService personService;
+
     public PersonController(PersonService personService) {
         this.personService = personService;
     }
@@ -26,7 +26,7 @@ public class PersonController {
     @GetMapping("/signIn/{name}/{password}")
     public ResponseEntity<?>signIn(@Valid @PathVariable String name, @Valid @PathVariable String password) {
         personService.signInPerson(name, password);
-        return new ResponseEntity<>("Signed up successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Signed in successfully", HttpStatus.OK);
     }
     //get request to check details
     @GetMapping("/viewProfile/{name}/{password}")
@@ -45,5 +45,12 @@ public class PersonController {
     public ResponseEntity<?>EditProfile(@Valid @PathVariable String name, @Valid @PathVariable String password, @Valid @RequestBody Person personEdit) {
         personService.editPersonProfile(name, password, personEdit);
         return new ResponseEntity<>("Edited account successfully", HttpStatus.OK);
+    }
+
+    //enter a password and name
+    //cal func
+    @GetMapping("/PortfolioValue/{name}/{password}")
+    public void portfolioValue(@Valid @PathVariable String name, @Valid @PathVariable String password){
+        personService.myPortfolioValue(name, password);
     }
 }
