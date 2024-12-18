@@ -23,7 +23,7 @@ public class AccountController {
     @GetMapping("/view/stocksOwned/{name}")
     public ResponseEntity<?> viewStocksOwned(@PathVariable String name) {
         //add a way to display stock details
-        return new ResponseEntity<>(accountService.returnAccStock(name), HttpStatus.OK); //also a line so i can push you can change this
+        return new ResponseEntity<>(accountService.returnAccStock(name), HttpStatus.OK); //also a line, so I can push you can change this
     }
 
     @PutMapping("/increaseBal/{name}/{bankBal}")
