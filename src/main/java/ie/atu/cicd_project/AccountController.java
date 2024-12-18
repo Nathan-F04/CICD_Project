@@ -24,8 +24,9 @@ public class AccountController {
 
     //used to view stocks
     @GetMapping("/view/stocksOwned/{name}")
-    public ResponseEntity<> viewStocksOwned(@PathVariable String name) {
+    public ResponseEntity<?> viewStocksOwned(@PathVariable String name) {
         //add a way to display stock details
+        return new ResponseEntity<>(accountService.returnAccStock(name), HttpStatus.OK); //also a line so i can push you can change this
     }
 
 

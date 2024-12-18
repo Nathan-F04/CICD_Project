@@ -24,6 +24,13 @@ public class AccountService {
     }
 
     public ResponseEntity<Optional<Account>> returnAccStock(String name) {
-        //add logic for stock check stocks here
+        Optional<Account> account = accountRepository.findByName(name);
+        if(account.isPresent()){
+            //add logic for stock check stocks here
+            return ResponseEntity.ok(account); // this is a line so i can push you can remove this
+        }else{
+            System.out.println("Name does not exist");
+        }
+        return null;
     }
 }
