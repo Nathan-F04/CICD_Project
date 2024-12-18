@@ -26,9 +26,8 @@ public class StocksController {
 
 
         @GetMapping("stockFindVal")
-        public float stockFindVal(String name) {
-            return stocksService.returnByName(name);
-
+        public void stockFindVal(String name) {
+            stocksService.returnByName(name);
         }
 
 

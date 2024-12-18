@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("StockValue")
 public class StockValueController {
 
-    private final StockValueRepository stockValueRepository;
+    private final StockValueService stockValueService;
 
-    public StockValueController(StockValueRepository stockValueRepository) {
-        this.stockValueRepository = stockValueRepository;
+    public StockValueController(StockValueService stockValueService) {
+        this.stockValueService = stockValueService;
     }
 
     @GetMapping
-    public float portfolioFromStockVal(int stockShares, String stockName){
-        return stockValueRepository.portfolioResult(stockShares, stockName);
+    public void portfolioFromStockVal(int stockShares, String stockName){
+        stockValueService.portfolioResult(stockShares, stockName);
     }
 }

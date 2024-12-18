@@ -88,7 +88,7 @@ public class PersonService {
     }
 
     //take email and password and if correct, call other func passing the name
-    public String myPortfolioValue(String name, String password) {
+    public void myPortfolioValue(String name, String password) {
         Optional<Person> verifyPerson = personRepository.findByName(name);
 
         if(verifyPerson.isPresent()){
@@ -96,16 +96,14 @@ public class PersonService {
             String verifyPassword = existingPerson.getPassword();
             if (verifyPassword.equals(password)) {
                 System.out.println("Passwords match");
-                return personToStocks.stockFindVal(name);
+                personToStocks.stockFindVal(name);
 
             }else {
                 //change to actual error handling
                 System.out.println("Error editing person");
-                return "null";
             }
         }else{
             System.out.println("Error editing person, person may not exist");
-            return "null";
         }
     }
 }

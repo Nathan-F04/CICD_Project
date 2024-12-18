@@ -16,11 +16,11 @@ public class StocksService {
         return stocksRepository.findBystockId(id);
     }
 
-    public float returnByName(String name){
+    public void returnByName(String name){
         Stocks stock =stocksRepository.findByName(name);
         int stockShares = stock.getStockShares();
         String stockName = stock.getStockName();
-        return stocksToValue.portfolioFromStockVal(stockShares, stockName);
+        stocksToValue.portfolioFromStockVal(stockShares, stockName);
     }
 
     //make a way to call method that finds by name make obj, get stock name and stock shares

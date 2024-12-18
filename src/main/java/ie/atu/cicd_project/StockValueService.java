@@ -8,8 +8,9 @@ public class StockValueService {
         this.stockValueRepository = stockValueRepository;
     }
 
-    public float portfolioResult(int stockShares, String stockName){
+    public void portfolioResult(int stockShares, String stockName){
         StockValue stockValue = stockValueRepository.findByStockName(stockName);
-        return (stockName*stockValue.getStockShareValue());
+        int ShareVal = stockValue.getStockShareValue();
+        System.out.println((float) (ShareVal*stockShares));
     }
 }
