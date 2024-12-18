@@ -22,4 +22,9 @@ public class Account {
     private String name;
     @Min(0)
     private float bankBal;
+
+    public Account(String name, float bankBal) {
+        this.name = name;
+        this.bankBal = bankBal;
+    }
 }

@@ -13,24 +13,13 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public ResponseEntity<Optional<Account>> returnAccBal(String name) {
-        Optional<Account> account = accountRepository.findByName(name);
-        if(account.isPresent()){
-            return ResponseEntity.ok(account);
-        }else{
-            System.out.println("Name does not exist");
-        }
-        return null;
+    public ResponseEntity<Account> returnAccBal(String name) {
+        Account account = accountRepository.findByName(name);
+        return ResponseEntity.ok(account);
     }
 
-    public ResponseEntity<Optional<Account>> returnAccStock(String name) {
-        Optional<Account> account = accountRepository.findByName(name);
-        if(account.isPresent()){
-            //add logic for stock check stocks here
-            return ResponseEntity.ok(account); // this is a line so i can push you can remove this
-        }else{
-            System.out.println("Name does not exist");
-        }
-        return null;
+    public ResponseEntity<Account> returnAccStock(String name) {
+        Account account = accountRepository.findByName(name);
+        return ResponseEntity.ok(account);
     }
 }

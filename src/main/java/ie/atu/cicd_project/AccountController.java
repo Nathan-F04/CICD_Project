@@ -19,7 +19,7 @@ public class AccountController {
     //used to view account balance and other details
     @GetMapping("/view/{name}")
     public ResponseEntity<?> viewDetails(@PathVariable String name) {
-        return new ResponseEntity<>(accountService.returnAccBal(name), HttpStatus.OK);
+        return accountService.returnAccBal(name);
     }
 
     //used to view stocks
