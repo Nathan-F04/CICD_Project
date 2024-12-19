@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 //must be on port 8082
-@FeignClient(name="StocksClient", url="http://localhost:8081/StockValue")
+@FeignClient(name="StocksClient", url="http://localhost:8082/StockValue")
 public interface StocksClient {
 
     @GetMapping("/getStockVal")
