@@ -32,6 +32,9 @@
     </properties>
     <modules>
         <module>Person-Service</module>
+        <module>Account-Service</module>
+        <module>Stock-Service</module>
+        <module>StockValue-Service</module>
     </modules>
     <dependencies>
         <dependency>
