@@ -10,7 +10,7 @@ public class StockValueService {
 
     public void portfolioResult(int stockShares, String stockName){
         StockValue stockValue = stockValueRepository.findByStockName(stockName);
-        double ShareVal = stockValue.getStockShareValue();
+        int ShareVal = stockValue.getStockShareValue();
         System.out.println((float) (ShareVal*stockShares));
     }
 }
