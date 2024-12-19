@@ -1,6 +1,8 @@
 package ie.atu.cicd_project;
 
-import com.rabbitmq.client.AMQP;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.amqp.core.Queue;
@@ -29,6 +31,11 @@ public class RabbitMQConfig {
     @Bean
     public Queue orderExchange(){
         return new Queue(EXCHANGE, true);
+    }
+
+    @Bean
+    public Binding ordersQueueBinding(Queue ordersQueue, TopicExchange exchange){
+        return BindingBuilder.bind(ordersQueue).to(exchange).with("order.#");
     }
 
 }
