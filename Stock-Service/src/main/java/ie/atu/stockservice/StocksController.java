@@ -26,8 +26,8 @@ public class StocksController {
 
 
     @GetMapping("/findStockVal/{name}")
-    public void stockFindVal(@PathVariable String name) {
-        stocksService.returnByName(name);
+    public ResponseEntity<?> stockFindVal(@PathVariable String name) {
+        return stocksService.returnByName(name);
     }
 
 

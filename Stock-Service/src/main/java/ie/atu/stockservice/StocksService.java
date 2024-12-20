@@ -1,5 +1,6 @@
 package ie.atu.stockservice;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,11 +17,11 @@ public class StocksService {
         return stocksRepository.findBystockId(id);
     }
 
-    public void returnByName(String name){
+    public ResponseEntity<?> returnByName(String name){
         Stocks stock = stocksRepository.findByName(name);
         int stockShares = stock.getStockShares();
         String stockName = stock.getStockName();
-        System.out.println(stockShares * stockValueClient.portfolioFromStockVal(stockName));
+        return ResponseEntity.ok(stockShares * stockValueClient.portfolioFromStockVal(stockName));
     }
 
     //make a way to call method that finds by name make obj, get stock name and stock shares
