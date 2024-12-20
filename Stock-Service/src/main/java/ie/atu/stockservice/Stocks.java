@@ -23,4 +23,10 @@ public class Stocks {
     private int stockShares;
     @NotNull(message = "personId can't be a null value.")
     private String name;
+
+    public Stocks(String stockName, int stockShares, String name) {
+        this.stockName = stockName;
+        this.stockShares = stockShares;
+        this.name = name;
+    }
 }

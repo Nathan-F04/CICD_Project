@@ -17,7 +17,7 @@ public class StocksService {
     }
 
     public void returnByName(String name){
-        Stocks stock =stocksRepository.findByName(name);
+        Stocks stock = stocksRepository.findByName(name);
         int stockShares = stock.getStockShares();
         String stockName = stock.getStockName();
         stocksClient.portfolioFromStockVal(stockShares, stockName);
