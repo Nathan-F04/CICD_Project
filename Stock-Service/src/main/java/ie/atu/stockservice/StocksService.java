@@ -1,26 +1,27 @@
 package ie.atu.stockservice;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StocksService {
     private final StocksRepository stocksRepository;
-    private final StocksClient stocksClient;
+    private final StockValueClient stockValueClient;
 
-    public StocksService(StocksRepository stocksRepository, StocksClient stocksClient) {
+    public StocksService(StocksRepository stocksRepository, StockValueClient stockValueClient) {
         this.stocksRepository = stocksRepository;
-        this.stocksClient = stocksClient;
+        this.stockValueClient = stockValueClient;
     }
 
     public Stocks returnStocksById(long id) {
         return stocksRepository.findBystockId(id);
     }
 
-    public void returnByName(String name){
-        Stocks stock =stocksRepository.findByName(name);
+    public ResponseEntity<?> returnByName(String name){
+        Stocks stock = stocksRepository.findByName(name);
         int stockShares = stock.getStockShares();
         String stockName = stock.getStockName();
-        stocksClient.portfolioFromStockVal(stockShares, stockName);
+        return ResponseEntity.ok(stockShares * stockValueClient.portfolioFromStockVal(stockName));
     }
 
     //make a way to call method that finds by name make obj, get stock name and stock shares

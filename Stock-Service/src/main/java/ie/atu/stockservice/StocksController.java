@@ -25,9 +25,9 @@ public class StocksController {
     //make a way to call method that finds by name make obj, get stock name and stock shares
 
 
-    @GetMapping
-    public void stockFindVal(String name) {
-        stocksService.returnByName(name);
+    @GetMapping("/findStockVal/{name}")
+    public ResponseEntity<?> stockFindVal(@PathVariable String name) {
+        return stocksService.returnByName(name);
     }
 
 

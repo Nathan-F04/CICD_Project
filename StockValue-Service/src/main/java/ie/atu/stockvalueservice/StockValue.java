@@ -24,4 +24,9 @@ public class StockValue {
     private int stockShareValue;
     @NotNull(message = "You must add a stock id")
     private String stockName;
+
+    public StockValue(int stockShareValue, String stockName){
+        this.stockShareValue = stockShareValue;
+        this.stockName = stockName;
+    }
 }
