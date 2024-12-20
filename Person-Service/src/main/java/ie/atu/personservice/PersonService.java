@@ -7,11 +7,11 @@ import java.util.Optional;
 public class PersonService {
 
     private final PersonRepository personRepository;
-    private final PersonClient personClient;
+    private final StockClient stockClient;
 
-    public PersonService(PersonRepository personRepository, PersonClient personClient) {
+    public PersonService(PersonRepository personRepository, StockClient stockClient) {
         this.personRepository = personRepository;
-        this.personClient = personClient;
+        this.stockClient = stockClient;
     }
 
     //Actually get the requests done here
@@ -96,7 +96,7 @@ public class PersonService {
             String verifyPassword = existingPerson.getPassword();
             if (verifyPassword.equals(password)) {
                 System.out.println("Passwords match");
-                personClient.stockFindVal(name);
+                stockClient.stockFindVal(name);
 
             }else {
                 //change to actual error handling

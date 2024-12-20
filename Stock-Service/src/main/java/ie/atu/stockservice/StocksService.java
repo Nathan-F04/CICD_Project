@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class StocksService {
     private final StocksRepository stocksRepository;
-    private final StocksClient stocksClient;
+    private final StockValueClient stockValueClient;
 
-    public StocksService(StocksRepository stocksRepository, StocksClient stocksClient) {
+    public StocksService(StocksRepository stocksRepository, StockValueClient stockValueClient) {
         this.stocksRepository = stocksRepository;
-        this.stocksClient = stocksClient;
+        this.stockValueClient = stockValueClient;
     }
 
     public Stocks returnStocksById(long id) {
@@ -20,7 +20,7 @@ public class StocksService {
         Stocks stock = stocksRepository.findByName(name);
         int stockShares = stock.getStockShares();
         String stockName = stock.getStockName();
-        stocksClient.portfolioFromStockVal(stockShares, stockName);
+        System.out.println(stockShares * stockValueClient.portfolioFromStockVal(stockName));
     }
 
     //make a way to call method that finds by name make obj, get stock name and stock shares
