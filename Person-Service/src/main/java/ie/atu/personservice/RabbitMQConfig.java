@@ -13,7 +13,7 @@ public class RabbitMQConfig {
 
     //queues constants
     public static final String PERSON_QUEUE = "personQueue";
-    public static final String INVENTORY_UPDATE_QUEUE = "inventoryUpdateQueue";
+    public static final String PERSON_RESPONSE = "personResponse";
     public static final String PAYMENT_PROCESSED_QUEUE = "paymentProcessedQueue";
     public static final String EXCHANGE = "orderExchange";
     public static final String ROUTING_KEY = "person_routingKey";
@@ -25,8 +25,8 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Queue inventoryUpdateQueue(){
-        return new Queue(INVENTORY_UPDATE_QUEUE, true);
+    public Queue personResponse(){
+        return new Queue(PERSON_RESPONSE, true);
     }
 
     @Bean
@@ -41,10 +41,9 @@ public class RabbitMQConfig {
 
     //binding for binding keys ie this case anything starting with order for ordersQueue
     @Bean
-    public Binding ordersQueueBinding(Queue personQueue, TopicExchange exchange){
+    public Binding personQueueBinding(Queue personQueue, TopicExchange exchange){
         return BindingBuilder.bind(personQueue).to(exchange).with(ROUTING_KEY);
    }
-
    //message converter
     @Bean
     public MessageConverter messageConverter(){

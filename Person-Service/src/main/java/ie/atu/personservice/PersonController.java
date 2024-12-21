@@ -1,6 +1,7 @@
 package ie.atu.personservice;
 
 import jakarta.validation.Valid;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -62,7 +63,6 @@ public class PersonController {
     @PostMapping("/message")
     public String inputMessage( @RequestBody Person person) {
         personService.signUpPerson(person);
-        template.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, person);
-        return "Message published";
+        return (String) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, person);
     }
 }

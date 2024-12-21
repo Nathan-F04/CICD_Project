@@ -1,6 +1,7 @@
 package ie.atu.personservice;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
@@ -9,6 +10,8 @@ public class PersonService {
 
     private final PersonRepository personRepository;
     private final StockClient stockClient;
+
+    RabbitTemplate template;
 
     public PersonService(PersonRepository personRepository, StockClient stockClient) {
         this.personRepository = personRepository;
@@ -109,8 +112,8 @@ public class PersonService {
     }
 
     //listener example
-    @RabbitListener (queues = RabbitMQConfig.PERSON_QUEUE)
-    public void listener(Person person){
-        System.out.println(person);
+    @RabbitListener (queues = RabbitMQConfig.PERSON_RESPONSE)
+    public String listener(Person person){
+        return "Received message: " + person;
     }
 }
