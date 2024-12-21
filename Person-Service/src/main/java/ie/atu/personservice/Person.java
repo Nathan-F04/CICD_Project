@@ -29,7 +29,7 @@ public class Person {
     private String stockPortfolio;
 
     //Constructor for data loader
-    public Person(String name, String email, String password, String bankDetails, String stock_portfolio) {
+    public Person(String name, String email, String password, String bankDetails, String stockPortfolio) {
         this.name = name;
         this.email = email;
         this.password = password;
