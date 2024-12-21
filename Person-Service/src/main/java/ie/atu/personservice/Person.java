@@ -26,7 +26,7 @@ public class Person {
     @NotEmpty(message = "Bank details must not be blank")
     private String bankDetails;
     @PositiveOrZero(message = "Stock portfolio must be positive")
-    private String stock_portfolio;
+    private String stockPortfolio;
 
     //Constructor for data loader
     public Person(String name, String email, String password, String bankDetails, String stock_portfolio) {
@@ -34,6 +34,6 @@ public class Person {
         this.email = email;
         this.password = password;
         this.bankDetails = bankDetails;
-        this.stock_portfolio = stock_portfolio;
+        this.stockPortfolio = stockPortfolio;
     }
 }
