@@ -6,6 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 @RestController
 public class PersonController {
@@ -53,8 +56,12 @@ public class PersonController {
     //enter a password and name
     //cal func-openfeign+mqtt
     @GetMapping("/PortfolioValue/{name}/{password}")
-    public void portfolioValue(@Valid @PathVariable String name, @Valid @PathVariable String password){
-        personService.myPortfolioValue(name, password);
+    public String portfolioValue(@Valid @PathVariable String name, @Valid @PathVariable String password){
+        Map<String, String> userDetails = new HashMap<>();
+        userDetails.put("string1", name);
+        userDetails.put("string2", password);
+        return (String) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, userDetails);
+        //personService.myPortfolioValue(name, password);
     }
 
     //publish message here
