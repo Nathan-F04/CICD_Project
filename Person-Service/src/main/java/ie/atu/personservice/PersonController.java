@@ -1,6 +1,8 @@
 package ie.atu.personservice;
 
 import jakarta.validation.Valid;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +12,11 @@ import org.springframework.web.bind.annotation.*;
 public class PersonController {
     //Person service DI
     private final PersonService personService;
+    private final RabbitTemplate template;
 
-    public PersonController(PersonService personService) {
+    public PersonController(PersonService personService, RabbitTemplate template) {
         this.personService = personService;
+        this.template = template;
     }
 
     //Listen for requests and calls the following methods:
@@ -48,9 +52,17 @@ public class PersonController {
     }
 
     //enter a password and name
-    //cal func
+    //cal func-openfeign+mqtt
     @GetMapping("/PortfolioValue/{name}/{password}")
     public void portfolioValue(@Valid @PathVariable String name, @Valid @PathVariable String password){
         personService.myPortfolioValue(name, password);
+    }
+
+    //publish message here
+    @PostMapping("/message")
+    public String inputMessage( @RequestBody Person person) {
+        personService.signUpPerson(person);
+        template.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, person);
+        return "Message published";
     }
 }
