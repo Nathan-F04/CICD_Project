@@ -3,6 +3,7 @@ package ie.atu.personservice;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -90,7 +91,7 @@ public class PersonService {
     }
 
     //take email and password and if correct, call other func passing the name
-    public void myPortfolioValue(String name, String password) {
+    /*public void myPortfolioValue(String name, String password) {
         Optional<Person> verifyPerson = personRepository.findByName(name);
 
         if(verifyPerson.isPresent()){
@@ -107,7 +108,7 @@ public class PersonService {
         }else{
             System.out.println("Error editing person, person may not exist");
         }
-    }
+    }*/
 
     //listener example
     @RabbitListener (queues = RabbitMQConfig.PERSON_QUEUE)
@@ -115,6 +116,29 @@ public class PersonService {
         personRepository.save(person);
         System.out.println(person);
         return "Saved"+person;
+    }
+
+    //take email and password and if correct, call other func passing the name
+    @RabbitListener (queues = RabbitMQConfig.PERSON_QUEUE)
+    public void myPortfolioValue(Map<String, String> userDetails) {
+        String name =userDetails.get("string1");
+        String password = userDetails.get("string1");
+        Optional<Person> verifyPerson = personRepository.findByName(name);
+
+        if(verifyPerson.isPresent()){
+            Person existingPerson = verifyPerson.get();
+            String verifyPassword = existingPerson.getPassword();
+            if (verifyPassword.equals(password)) {
+                System.out.println("Passwords match");
+                stockClient.stockFindVal(name);
+
+            }else {
+                //change to actual error handling
+                System.out.println("Error editing person");
+            }
+        }else{
+            System.out.println("Error editing person, person may not exist");
+        }
     }
 
 }
