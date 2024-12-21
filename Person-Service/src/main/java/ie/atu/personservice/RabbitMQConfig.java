@@ -13,25 +13,13 @@ public class RabbitMQConfig {
 
     //queues constants
     public static final String PERSON_QUEUE = "personQueue";
-    public static final String PERSON_RESPONSE = "personResponse";
-    public static final String PAYMENT_PROCESSED_QUEUE = "paymentProcessedQueue";
-    public static final String EXCHANGE = "orderExchange";
+    public static final String EXCHANGE = "personExchange";
     public static final String ROUTING_KEY = "person_routingKey";
 
     //declare queues
     @Bean
     public Queue personQueue(){
        return new Queue(PERSON_QUEUE, true);
-    }
-
-    @Bean
-    public Queue personResponse(){
-        return new Queue(PERSON_RESPONSE, true);
-    }
-
-    @Bean
-    public Queue paymentProcessedQueue(){
-        return new Queue(PAYMENT_PROCESSED_QUEUE, true);
     }
     //exchange here
     @Bean
