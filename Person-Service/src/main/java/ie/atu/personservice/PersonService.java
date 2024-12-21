@@ -1,6 +1,8 @@
 package ie.atu.personservice;
 
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 
 @Service
@@ -68,7 +70,7 @@ public class PersonService {
                 existingPerson.setName(personEdit.getName());
                 existingPerson.setEmail(personEdit.getEmail());
                 existingPerson.setPassword(personEdit.getPassword());
-                existingPerson.setStock_portfolio(personEdit.getStock_portfolio());
+                existingPerson.setStockPortfolio(personEdit.getStockPortfolio());
                 existingPerson.setBankDetails(personEdit.getBankDetails());
                 System.out.println("Person edited successfully");
 
@@ -106,4 +108,13 @@ public class PersonService {
             System.out.println("Error editing person, person may not exist");
         }
     }
+
+    //listener example
+    @RabbitListener (queues = RabbitMQConfig.PERSON_QUEUE)
+    public String listener(Person person){
+        personRepository.save(person);
+        System.out.println(person);
+        return "Saved"+person;
+    }
+
 }
