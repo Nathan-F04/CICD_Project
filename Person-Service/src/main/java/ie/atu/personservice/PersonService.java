@@ -92,34 +92,6 @@ public class PersonService {
     }
 
     //take email and password and if correct, call other func passing the name
-    /*public void myPortfolioValue(String name, String password) {
-        Optional<Person> verifyPerson = personRepository.findByName(name);
-
-        if(verifyPerson.isPresent()){
-            Person existingPerson = verifyPerson.get();
-            String verifyPassword = existingPerson.getPassword();
-            if (verifyPassword.equals(password)) {
-                System.out.println("Passwords match");
-                stockClient.stockFindVal(name);
-
-            }else {
-                //change to actual error handling
-                System.out.println("Error editing person");
-            }
-        }else{
-            System.out.println("Error editing person, person may not exist");
-        }
-    }*/
-
-    //listener example
-    /*@RabbitListener (queues = RabbitMQConfig.PERSON_QUEUE)
-    public String listener(Person person){
-        personRepository.save(person);
-        System.out.println(person);
-        return "Saved"+person;
-    }*/
-
-    //take email and password and if correct, call other func passing the name
     @RabbitListener (queues = RabbitMQConfig.PERSON_QUEUE)
     public ResponseEntity<?> myPortfolioValue(Map<String, String> userDetails) {
         String name =userDetails.get("name");

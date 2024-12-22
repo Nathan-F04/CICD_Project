@@ -63,11 +63,4 @@ public class PersonController {
         return (ResponseEntity<?>) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, userDetails);
     }
 
-    //publish message here
-    @PostMapping("/message")
-    public String inputMessage( @RequestBody Person person) {
-        return "test";
-        //return (String) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, person);
-    }
-
 }
