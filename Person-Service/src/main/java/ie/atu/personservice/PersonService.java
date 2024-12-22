@@ -1,6 +1,7 @@
 package ie.atu.personservice;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -120,7 +121,7 @@ public class PersonService {
 
     //take email and password and if correct, call other func passing the name
     @RabbitListener (queues = RabbitMQConfig.PERSON_QUEUE)
-    public String myPortfolioValue(Map<String, String> userDetails) {
+    public ResponseEntity<?> myPortfolioValue(Map<String, String> userDetails) {
         String name =userDetails.get("name");
         String password = userDetails.get("password");
         Optional<Person> verifyPerson = personRepository.findByName(name);
@@ -130,8 +131,8 @@ public class PersonService {
             String verifyPassword = existingPerson.getPassword();
             if (verifyPassword.equals(password)) {
                 System.out.println("Passwords match");
-                //stockClient.stockFindVal(name);
-                return "success";
+                return stockClient.stockFindVal(name);
+
 
             }else {
                 //change to actual error handling
@@ -140,7 +141,7 @@ public class PersonService {
         }else{
             System.out.println("Error editing person, person may not exist");
         }
-        return "fail";
+        return (ResponseEntity<?>) ResponseEntity.status(400);
     }
 
 }
