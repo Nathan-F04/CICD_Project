@@ -14,10 +14,12 @@ public class StockDataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception{
         //Insert data here
-        Stocks testData1 = new Stocks("Apple", 1,"Nathan");
-        Stocks testData2 = new Stocks("MicroSoft", 2, "Shine");
+        Stocks testData1 = new Stocks("Apple", 100,"Nathan");
+        Stocks testData2 = new Stocks("Apple", 100,"Nathan");
+        Stocks testData3 = new Stocks("Microsoft", 200, "Shine");
         //save here
         stocksRepository.save(testData1);
         stocksRepository.save(testData2);
+        stocksRepository.save(testData3);
     }
 }

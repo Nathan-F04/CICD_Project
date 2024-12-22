@@ -3,6 +3,8 @@ package ie.atu.stockservice;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StocksService {
     private final StocksRepository stocksRepository;
@@ -18,12 +20,14 @@ public class StocksService {
     }
 
     public ResponseEntity<?> returnByName(String name){
-        Stocks stock = stocksRepository.findByName(name);
-        int stockShares = stock.getStockShares();
-        String stockName = stock.getStockName();
-        return ResponseEntity.ok(stockShares * stockValueClient.portfolioFromStockVal(stockName));
-    }
+        double total =0.0;
+        List<Stocks> myStocks = stocksRepository.findAllByName(name);
+        for(Stocks stock: myStocks){
+            int stockShares = stock.getStockShares();
+            String stockName = stock.getStockName();
+            total = total + stockShares * stockValueClient.portfolioFromStockVal(stockName);
+        }
 
-    //make a way to call method that finds by name make obj, get stock name and stock shares
-    //this calls func passing the name and shares
+        return ResponseEntity.ok(total);
+    }
 }
