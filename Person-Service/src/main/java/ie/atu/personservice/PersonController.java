@@ -58,8 +58,8 @@ public class PersonController {
     @GetMapping("/PortfolioValue/{name}/{password}")
     public String portfolioValue(@Valid @PathVariable String name, @Valid @PathVariable String password){
         Map<String, String> userDetails = new HashMap<>();
-        userDetails.put("string1", name);
-        userDetails.put("string2", password);
+        userDetails.put("name", name);
+        userDetails.put("password", password);
         return (String) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, userDetails);
         //personService.myPortfolioValue(name, password);
     }
@@ -67,7 +67,8 @@ public class PersonController {
     //publish message here
     @PostMapping("/message")
     public String inputMessage( @RequestBody Person person) {
-        return (String) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, person);
+        return "test";
+        //return (String) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, person);
     }
 
 }

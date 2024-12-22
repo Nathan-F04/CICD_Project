@@ -111,18 +111,18 @@ public class PersonService {
     }*/
 
     //listener example
-    @RabbitListener (queues = RabbitMQConfig.PERSON_QUEUE)
+    /*@RabbitListener (queues = RabbitMQConfig.PERSON_QUEUE)
     public String listener(Person person){
         personRepository.save(person);
         System.out.println(person);
         return "Saved"+person;
-    }
+    }*/
 
     //take email and password and if correct, call other func passing the name
     @RabbitListener (queues = RabbitMQConfig.PERSON_QUEUE)
-    public void myPortfolioValue(Map<String, String> userDetails) {
-        String name =userDetails.get("string1");
-        String password = userDetails.get("string1");
+    public String myPortfolioValue(Map<String, String> userDetails) {
+        String name =userDetails.get("name");
+        String password = userDetails.get("password");
         Optional<Person> verifyPerson = personRepository.findByName(name);
 
         if(verifyPerson.isPresent()){
@@ -130,7 +130,8 @@ public class PersonService {
             String verifyPassword = existingPerson.getPassword();
             if (verifyPassword.equals(password)) {
                 System.out.println("Passwords match");
-                stockClient.stockFindVal(name);
+                //stockClient.stockFindVal(name);
+                return "success";
 
             }else {
                 //change to actual error handling
@@ -139,6 +140,7 @@ public class PersonService {
         }else{
             System.out.println("Error editing person, person may not exist");
         }
+        return "fail";
     }
 
 }
