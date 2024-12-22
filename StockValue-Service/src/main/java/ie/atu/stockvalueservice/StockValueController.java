@@ -16,7 +16,7 @@ public class StockValueController {
     }
 
     @GetMapping("/getStockVal/{stockName}")
-    public int portfolioFromStockVal(@PathVariable String stockName){
+    public double portfolioFromStockVal(@PathVariable String stockName){
         return stockValueService.portfolioResult(stockName);
     }
 }
