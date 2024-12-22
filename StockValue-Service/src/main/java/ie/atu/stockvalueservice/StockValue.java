@@ -21,11 +21,11 @@ public class StockValue {
     @NotNull(message = "You must add a value id")
     private long valueId;
     @PositiveOrZero(message = "Stock value must be greater than zero")
-    private int stockShareValue;
+    private double stockShareValue;
     @NotNull(message = "You must add a stock id")
     private String stockName;
 
-    public StockValue(int stockShareValue, String stockName){
+    public StockValue(double stockShareValue, String stockName){
         this.stockShareValue = stockShareValue;
         this.stockName = stockName;
     }

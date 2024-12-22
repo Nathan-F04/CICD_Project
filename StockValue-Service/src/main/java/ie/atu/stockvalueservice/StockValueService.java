@@ -11,7 +11,7 @@ public class StockValueService {
         this.stockValueRepository = stockValueRepository;
     }
 
-    public int portfolioResult(String stockName){
+    public double portfolioResult(String stockName){
         StockValue stockValue = stockValueRepository.findByStockName(stockName);
         return stockValue.getStockShareValue();
     }
