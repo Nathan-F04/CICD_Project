@@ -41,4 +41,9 @@ public class StocksService {
             stocksRepository.save(newStocks);
         }
     }
+
+    public void buy(String name, String stock, int shares){
+        Stocks stockSaved = new Stocks(stock,shares,name);
+        stocksRepository.save(stockSaved);
+    }
 }
