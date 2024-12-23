@@ -11,6 +11,7 @@ import java.util.Map;
 
 
 @RestController
+@RequestMapping("/person")
 public class PersonController {
     //Person service DI
     private final PersonService personService;
@@ -41,10 +42,9 @@ public class PersonController {
         return ResponseEntity.ok(person);
     }
     //Delete account
-    @DeleteMapping("/removeAccount")
-    public ResponseEntity<?>RemoveAccount(@Valid @RequestBody Person person){
-        personService.DeleteAccount(person);
-        return new ResponseEntity<>("Deleted account successfully", HttpStatus.OK);
+    @DeleteMapping("/removeAccount/{name}")
+    public ResponseEntity<?>RemoveAccount(@Valid @PathVariable String name){
+        return personService.DeleteAccount(name);
     }
     //update user details
     @PutMapping("/editProfile/{name}/{password}")

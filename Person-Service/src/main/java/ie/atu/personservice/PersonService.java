@@ -1,6 +1,7 @@
 package ie.atu.personservice;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -91,9 +92,16 @@ public class PersonService {
     }
 
     //delete
-    public void DeleteAccount(Person person) {
-        //delete person from db
-        personRepository.delete(person);
+    public ResponseEntity<?> DeleteAccount(String name) {
+        Optional<Person> person = personRepository.findByName(name);
+        if(person.isPresent()){
+            Person currentPerson = person.get();
+            personRepository.delete(currentPerson);
+            return ResponseEntity.ok("Deleted account successfully");
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not Found");
+        }
     }
 
     //take email and password and if correct, call other func passing the name
