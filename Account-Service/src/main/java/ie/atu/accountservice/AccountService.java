@@ -14,10 +14,13 @@ public class AccountService {
 
     private final StockClient stockClient;
 
-    public AccountService(AccountRepository accountRepository, PersonClient personClient, StockClient stockClient) {
+    private final StockValueClient stockValueClient;
+
+    public AccountService(AccountRepository accountRepository, PersonClient personClient, StockClient stockClient, StockValueClient stockValueClient) {
         this.accountRepository = accountRepository;
         this.personClient = personClient;
         this.stockClient = stockClient;
+        this.stockValueClient = stockValueClient;
     }
 
     public ResponseEntity<?> returnAccBal(String name) {
@@ -86,8 +89,10 @@ public class AccountService {
         //function to check balance and store it
         double bal = checkbal(name);
         //find stock price
+        double price = stockValueClient.portfolioFromStockVal(stock);
         //int price = func(stock)
         //price * amount = total
         //if total>bal return invalid transaction else write it to the db and remove money from the account
+        return ResponseEntity.ok("Stocks bought successfully");
     }
 }
