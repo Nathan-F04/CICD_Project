@@ -41,4 +41,10 @@ public class AccountController {
         return accountService.deleteAcc(name);
     }
 
+    //buy and sell stocks
+    @PostMapping("/buyStock/{stock}/{amount}/{name}")
+    public ResponseEntity<?> BuyStock(@PathVariable String stock, @PathVariable int amount,@PathVariable String name){
+        return accountService.stockBuy(stock, amount, name);
+    }
+
 }
