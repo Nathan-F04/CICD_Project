@@ -46,5 +46,8 @@ public class AccountController {
     public ResponseEntity<?> BuyStock(@PathVariable String stock, @PathVariable int amount,@PathVariable String name){
         return accountService.stockBuy(stock, amount, name);
     }
-
+    @PutMapping("/sellStock/{stock}/{amount}/{name}")
+    public ResponseEntity<?> SellStock(@PathVariable String stock, @PathVariable int amount, @PathVariable String name){
+        return accountService.stockSell(stock, amount, name);
+    }
 }

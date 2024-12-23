@@ -101,4 +101,13 @@ public class AccountService {
             return ResponseEntity.ok("Stocks bought successfully");
         }
     }
+
+    public ResponseEntity<?> stockSell(String stock, int amount, String name){
+        //find stock price
+        double price = stockValueClient.portfolioFromStockVal(stock);
+        double total = price * amount;
+        //add to balance
+        addBal(name, (float) total);
+        //remove from db
+    }
 }
