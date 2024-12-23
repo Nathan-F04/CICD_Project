@@ -10,8 +10,8 @@ import java.util.List;
 @FeignClient(name="StockValue-Client", url="http://localhost:8083/StockValue")
 public interface StockValueClient {
 
-    @GetMapping("/getStockVal/{name}")
-    int portfolioFromStockVal(@PathVariable String name);
+    @GetMapping("/getStockVal/{stockName}")
+    double portfolioFromStockVal(@PathVariable String stockName);
 
     @GetMapping("/getAllStockNames")
     List<String> stockNames();

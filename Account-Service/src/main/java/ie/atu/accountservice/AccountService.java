@@ -90,9 +90,14 @@ public class AccountService {
         double bal = checkbal(name);
         //find stock price
         double price = stockValueClient.portfolioFromStockVal(stock);
-        //int price = func(stock)
-        //price * amount = total
+        double total = price * amount;
         //if total>bal return invalid transaction else write it to the db and remove money from the account
-        return ResponseEntity.ok("Stocks bought successfully");
+        if(total>bal){
+            return ResponseEntity.ok("You do not have the funds to purchase the entered stocks");
+        }else {
+            //add to the db and remove from bal
+            addBal(name, (float) -(total));
+            return ResponseEntity.ok("Stocks bought successfully");
+        }
     }
 }
