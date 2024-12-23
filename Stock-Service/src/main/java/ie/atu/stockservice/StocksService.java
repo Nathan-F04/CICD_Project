@@ -30,4 +30,15 @@ public class StocksService {
 
         return ResponseEntity.ok(total);
     }
+
+    public void createNewStock(String name) {
+        List<String> myStocks = stockValueClient.stockNames();
+        for(String myString: myStocks) {
+            Stocks newStocks = new Stocks();
+            newStocks.setStockName(myString);
+            newStocks.setStockShares(0);
+            newStocks.setName(name);
+            stocksRepository.save(newStocks);
+        }
+    }
 }
