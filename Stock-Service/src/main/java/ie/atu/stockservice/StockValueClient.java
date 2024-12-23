@@ -13,9 +13,6 @@ public interface StockValueClient {
     @GetMapping("/getStockVal/{name}")
     int portfolioFromStockVal(@PathVariable String name);
 
-    @GetMapping("/getStockName/{stockId}")
-    String stockNameById(@PathVariable int stockId);
-
     @GetMapping("/getAllStockNames")
     List<String> stockNames();
 }

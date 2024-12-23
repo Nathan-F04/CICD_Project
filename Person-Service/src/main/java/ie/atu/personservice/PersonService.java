@@ -13,9 +13,12 @@ public class PersonService {
     private final PersonRepository personRepository;
     private final StockClient stockClient;
 
-    public PersonService(PersonRepository personRepository, StockClient stockClient) {
+    private final AccountClient accountClient;
+
+    public PersonService(PersonRepository personRepository, StockClient stockClient, AccountClient accountClient) {
         this.personRepository = personRepository;
         this.stockClient = stockClient;
+        this.accountClient = accountClient;
     }
 
     //Actually get the requests done here
@@ -23,6 +26,8 @@ public class PersonService {
     public void signUpPerson(Person person) {
         //save person to db to sign them up
         personRepository.save(person);
+        stockClient.createNewStocks(person.getName());
+        accountClient.createAcc(person.getName());
     }
     //sign in
     public void signInPerson(String name, String password) {

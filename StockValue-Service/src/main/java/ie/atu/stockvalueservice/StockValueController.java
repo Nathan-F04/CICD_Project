@@ -1,5 +1,6 @@
 package ie.atu.stockvalueservice;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +24,8 @@ public class StockValueController {
     }
 
     @GetMapping("/getStockName/{stockId}")
-    public String stockNameById(@PathVariable int stockId) {
-        return stockValueService.getStockName(stockId);
+    public ResponseEntity<StockValue> stockNameById(@PathVariable int stockId) {
+        return ResponseEntity.ok(stockValueService.getStock(stockId));
     }
 
     @GetMapping("/getAllStockNames")

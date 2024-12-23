@@ -31,5 +31,9 @@ public class AccountController {
         return accountService.addBal(name, bankBal);
     }
 
+    @PostMapping("/createAcc/{name}")
+    public void createAcc(@PathVariable String name) {
+        accountService.createAcc(name);
+    }
 
 }

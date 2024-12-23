@@ -42,4 +42,11 @@ public class AccountService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not Found");
         }
     }
+
+    public void createAcc(String name) {
+        Account account = new Account();
+        account.setName(name);
+        account.setBankBal(0);
+        accountRepository.save(account);
+    }
 }

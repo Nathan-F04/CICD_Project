@@ -1,5 +1,6 @@
 package ie.atu.stockvalueservice;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,9 +19,8 @@ public class StockValueService {
         return stockValue.getStockShareValue();
     }
 
-    public String getStockName(int stockId) {
-        StockValue stockValue = stockValueRepository.findByStockId(stockId);
-        return  stockValue.getStockName();
+    public StockValue getStock(int stockId) {
+        return stockValueRepository.findByStockId(stockId);
     }
 
     public List<String> getColumnNames() {
