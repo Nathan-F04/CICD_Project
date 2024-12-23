@@ -52,7 +52,7 @@ public class AccountService {
         }
     }
 
-    public double checkbal(String name){
+    public double checkBal(String name){
         Optional<Account> account = accountRepository.findByName(name);
         if(account.isPresent()) {
             Account accountCurrent = account.get();
@@ -87,7 +87,7 @@ public class AccountService {
     //buy and sell stock
     public ResponseEntity<?> stockBuy (String stock, int amount, String name){
         //function to check balance and store it
-        double bal = checkbal(name);
+        double bal = checkBal(name);
         //find stock price
         double price = stockValueClient.portfolioFromStockVal(stock);
         double total = price * amount;
@@ -97,6 +97,7 @@ public class AccountService {
         }else {
             //add to the db and remove from bal
             addBal(name, (float) -(total));
+            stockClient.createNewStocks(name);
             return ResponseEntity.ok("Stocks bought successfully");
         }
     }
