@@ -10,7 +10,7 @@ import java.util.List;
 public interface StockValueRepository extends JpaRepository<StockValue, Long> {
 
     StockValue findByStockName (String stockName);
-    StockValue findByStockId(int stockId);
+    StockValue findByValueId(int stockId);
 
     @Query("SELECT e.stockName FROM StockValue e")
     List<String> findAllColumns();

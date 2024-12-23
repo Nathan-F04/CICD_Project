@@ -20,7 +20,7 @@ public class StockValueService {
     }
 
     public StockValue getStock(int stockId) {
-        return stockValueRepository.findByStockId(stockId);
+        return stockValueRepository.findByValueId(stockId);
     }
 
     public List<String> getColumnNames() {
