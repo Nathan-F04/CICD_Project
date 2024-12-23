@@ -1,10 +1,7 @@
 package ie.atu.stockservice;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/stock")
@@ -28,6 +25,11 @@ public class StocksController {
     @GetMapping("/findStockVal/{name}")
     public ResponseEntity<?> stockFindVal(@PathVariable String name) {
         return stocksService.returnByName(name);
+    }
+
+    @PostMapping("/createNewStocks/{name}")
+    public void createNewStocks(@PathVariable String name) {
+        stocksService.createNewStock(name);
     }
 
 

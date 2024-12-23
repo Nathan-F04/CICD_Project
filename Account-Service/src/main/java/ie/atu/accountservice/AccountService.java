@@ -10,8 +10,11 @@ import java.util.Optional;
 public class AccountService {
     private final AccountRepository accountRepository;
 
-    public AccountService(AccountRepository accountRepository) {
+    private final PersonClient personClient;
+
+    public AccountService(AccountRepository accountRepository, PersonClient personClient) {
         this.accountRepository = accountRepository;
+        this.personClient = personClient;
     }
 
     public ResponseEntity<?> returnAccBal(String name) {
@@ -37,6 +40,27 @@ public class AccountService {
             accountCurrent.setBankBal(bal);
             accountRepository.save(accountCurrent);
             return ResponseEntity.ok(accountCurrent);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not Found");
+        }
+    }
+
+    public void createAcc(String name) {
+        Account account = new Account();
+        account.setName(name);
+        account.setBankBal(0);
+        accountRepository.save(account);
+    }
+
+    public ResponseEntity<?> deleteAcc(String name) {
+        Optional<Account> account = accountRepository.findByName(name);
+        if(account.isPresent()){
+            Account accountCurrent = account.get();
+            accountRepository.delete(accountCurrent);
+            personClient.RemoveAccount(accountCurrent.getName());
+            //add a way to delete stocks here
+            return ResponseEntity.ok("Account deleted successfully");
         }
         else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not Found");

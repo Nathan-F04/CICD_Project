@@ -20,10 +20,10 @@ public class AccountController {
     }
 
     //used to view stocks
-    @GetMapping("/view/stocksOwned/{name}")
+    //change this one to the method in person class
+    @GetMapping("/viewStocksOwned/{name}")
     public ResponseEntity<?> viewStocksOwned(@PathVariable String name) {
-        //add a way to display stock details
-        return new ResponseEntity<>(accountService.returnAccStock(name), HttpStatus.OK); //also a line, so I can push you can change this
+        return new ResponseEntity<>(accountService.returnAccStock(name), HttpStatus.OK);
     }
 
     @PutMapping("/increaseBal/{name}/{bankBal}")
@@ -31,5 +31,14 @@ public class AccountController {
         return accountService.addBal(name, bankBal);
     }
 
+    @PostMapping("/createAcc/{name}")
+    public void createAcc(@PathVariable String name) {
+        accountService.createAcc(name);
+    }
+
+    @DeleteMapping("/deleteAcc/{name}")
+    public ResponseEntity<?> deleteAcc(@PathVariable String name) {
+        return accountService.deleteAcc(name);
+    }
 
 }
