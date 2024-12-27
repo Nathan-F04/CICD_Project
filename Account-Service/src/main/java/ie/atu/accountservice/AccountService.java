@@ -36,11 +36,6 @@ public class AccountService {
         }
     }
 
-    public ResponseEntity<?> returnAccStock(String name) {
-        Optional<Account> account = accountRepository.findByName(name);
-        return ResponseEntity.ok(account);
-    }
-
     public ResponseEntity<?> addBal(String name, float bankBal) {
         Optional<Account> account = accountRepository.findByName(name);
         if(account.isPresent()) {

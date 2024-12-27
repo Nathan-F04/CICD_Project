@@ -19,13 +19,6 @@ public class AccountController {
         return accountService.viewDetailsService(name);
     }
 
-    //used to view stocks
-    //change this one to the method in person class
-    @GetMapping("/viewStocksOwned/{name}")
-    public ResponseEntity<?> viewStocksOwned(@PathVariable String name) {
-        return new ResponseEntity<>(accountService.returnAccStock(name), HttpStatus.OK);
-    }
-
     @PutMapping("/increaseBal/{name}/{bankBal}")
     public ResponseEntity<?> increaseBal(@PathVariable String name, @PathVariable float bankBal) {
         return accountService.addBal(name, bankBal);
