@@ -18,4 +18,11 @@ public interface StockClient {
 
     @PutMapping("/buyNewStocks/{name}/{stock}/{shares}")
     void buyNewStocks(@PathVariable String name, @PathVariable int shares, @PathVariable String stock);
+
+    @PutMapping("/sellStocks/{name}/{stock}/{shares}")
+    void sellStocks(@PathVariable String name, @PathVariable int shares, @PathVariable String stock);
+
+    @GetMapping("/checkShares/{name}/{stock}")
+    int checkShares(@PathVariable String name, @PathVariable String stock);
+
 }

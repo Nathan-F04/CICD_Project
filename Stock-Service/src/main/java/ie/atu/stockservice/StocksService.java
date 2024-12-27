@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StocksService {
@@ -43,9 +44,32 @@ public class StocksService {
     }
 
     public void buy(String stock, int shares, String name){
-        Stocks stockEdit = stocksRepository.findStocksByStockNameAndName(stock, name);
-        int originalShares = stockEdit.getStockShares();
-        stockEdit.setStockShares(originalShares+shares);
-        stocksRepository.save(stockEdit);
+        Optional<Stocks> stockObj = stocksRepository.findStocksByStockNameAndName(stock, name);
+        if(stockObj.isPresent()){
+            Stocks stockEdit = stockObj.get();
+            int originalShares = stockEdit.getStockShares();
+            stockEdit.setStockShares(originalShares+shares);
+            stocksRepository.save(stockEdit);
+        }
+    }
+
+    public void sell(String stock, int shares, String name){
+        Optional<Stocks> stockObj = stocksRepository.findStocksByStockNameAndName(stock, name);
+        if(stockObj.isPresent()){
+            Stocks stockEdit = stockObj.get();
+            int originalShares = stockEdit.getStockShares();
+            stockEdit.setStockShares(originalShares-shares);
+            stocksRepository.save(stockEdit);
+        }
+    }
+
+    public int checkSharesService(String name, String stock){
+        Optional<Stocks> stockEdit = stocksRepository.findStocksByStockNameAndName(stock, name);
+        if(stockEdit.isPresent()){
+            Stocks currentStock = stockEdit.get();
+            return currentStock.getStockShares();
+        }else{
+            return 0;
+        }
     }
 }

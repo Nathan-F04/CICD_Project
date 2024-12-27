@@ -91,7 +91,7 @@ public class AccountService {
         double total = price * amount;
         //if total>bal return invalid transaction else write it to the db and remove money from the account
         if(total>bal){
-            return ResponseEntity.ok("You do not have the funds to purchase the entered stocks");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You do not have the funds to purchase the entered stocks");
         }else {
             //add to the db and remove from bal
             addBal(name, (float) -(total));
@@ -103,10 +103,18 @@ public class AccountService {
     public ResponseEntity<?> stockSell(String stock, int amount, String name){
         //find stock price
         double price = stockValueClient.portfolioFromStockVal(stock);
-        double total = price * amount;
-        //add to balance
-        addBal(name, (float) total);
-        //remove from db
-        return ResponseEntity.ok("Stock sold successfully");
+        //check if you have that amount of shares
+        int sharesInAccount = stockClient.checkShares(name, stock);
+        System.out.println(sharesInAccount);
+        if(sharesInAccount<amount){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You do not have the shares to sell");
+        }else{
+            double total = price * amount;
+            //add to balance
+            addBal(name, (float) total);
+            //remove from db
+            stockClient.sellStocks(name, amount, stock);
+            return ResponseEntity.ok("Stock sold successfully");
+        }
     }
 }

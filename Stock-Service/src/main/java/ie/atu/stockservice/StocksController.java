@@ -37,5 +37,14 @@ public class StocksController {
         stocksService.buy(stock, shares, name);
     }
 
+    @PutMapping("/sellStocks/{name}/{stock}/{shares}")
+    public void sellStocks(@PathVariable String name, @PathVariable int shares, @PathVariable String stock){
+        stocksService.sell(stock, shares, name);
+    }
+
+    @GetMapping("/checkShares/{name}/{stock}")
+    int checkShares(@PathVariable String name, @PathVariable String stock){
+        return stocksService.checkSharesService(name,stock);
+    }
 
 }
