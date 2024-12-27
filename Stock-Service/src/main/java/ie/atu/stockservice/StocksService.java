@@ -1,5 +1,6 @@
 package ie.atu.stockservice;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class StocksService {
         double total =0.0;
         List<Stocks> myStocks = stocksRepository.findAllByName(name);
         if(myStocks.isEmpty()){
+            //return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No stocks found");
             return 0;
         }else {
             for (Stocks stock : myStocks) {
@@ -27,6 +29,7 @@ public class StocksService {
                 String stockName = stock.getStockName();
                 total = total + stockShares * stockValueClient.portfolioFromStockVal(stockName);
             }
+            //return ResponseEntity.ok(total);
             return total;
         }
     }

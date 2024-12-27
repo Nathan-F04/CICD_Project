@@ -52,13 +52,11 @@ public class PersonController {
 
     //enter a password and name
     //cal func-openfeign+mqtt
-    @GetMapping("/PortfolioValue/{name}/{password}")
+    @GetMapping("/portfolioValue/{name}/{password}")
     public double portfolioValue( @PathVariable String name, @PathVariable String password){
         Map<String, String> userDetails = new HashMap<>();
         userDetails.put("name", name);
         userDetails.put("password", password);
         return (double) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, userDetails);
-
     }
-
 }
