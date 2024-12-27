@@ -23,10 +23,13 @@ public class AccountService {
         this.stockValueClient = stockValueClient;
     }
 
-    public ResponseEntity<?> returnAccBal(String name) {
+    public ResponseEntity<?> viewDetailsService(String name) {
         Optional<Account> account = accountRepository.findByName(name);
         if(account.isPresent()) {
-            return ResponseEntity.ok(account);
+            Account currentAccount = account.get();
+            String userName = currentAccount.getName();
+            float userBal = currentAccount.getBankBal();
+            return ResponseEntity.ok("Name: " + userName + "\nBalance:€ " + userBal);
         }
         else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not Found");
@@ -109,5 +112,6 @@ public class AccountService {
         //add to balance
         addBal(name, (float) total);
         //remove from db
+        return ResponseEntity.ok("Stock sold successfully");
     }
 }
