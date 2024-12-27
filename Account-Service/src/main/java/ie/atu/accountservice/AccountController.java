@@ -1,6 +1,5 @@
 package ie.atu.accountservice;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,8 +34,8 @@ public class AccountController {
     }
 
     //buy and sell stocks
-    @PostMapping("/buyStock/{stock}/{amount}/{name}")
-    public ResponseEntity<?> BuyStock(@PathVariable String stock, @PathVariable int amount,@PathVariable String name){
+    @PutMapping("/buyStock/{stock}/{amount}/{name}")
+    public ResponseEntity<?> buyStock(@PathVariable String stock, @PathVariable int amount, @PathVariable String name){
         return accountService.stockBuy(stock, amount, name);
     }
     @PutMapping("/sellStock/{stock}/{amount}/{name}")

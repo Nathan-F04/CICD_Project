@@ -15,4 +15,7 @@ public interface StockClient {
 
     @PostMapping("/createNewStocks/{name}")
     void createNewStocks(@PathVariable String name);
+
+    @PostMapping("/buyNewStocks/{name}/{stock}/{shares}")
+    void buyNewStocks(@PathVariable String name, @PathVariable String stock, @PathVariable int shares);
 }

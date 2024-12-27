@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @FeignClient(name="Stock-Client", url="http://localhost:8082/stock")
 public interface StockClient {
@@ -15,6 +16,6 @@ public interface StockClient {
     @PostMapping("/createNewStocks/{name}")
     void createNewStocks(@PathVariable String name);
 
-    @PostMapping("/buyNewStocks/{name}/{stock}/{shares}")
-    void buyNewStocks(@PathVariable String name, @PathVariable String stock, @PathVariable int shares);
+    @PutMapping("/buyNewStocks/{name}/{stock}/{shares}")
+    void buyNewStocks(@PathVariable String name, @PathVariable int shares, @PathVariable String stock);
 }

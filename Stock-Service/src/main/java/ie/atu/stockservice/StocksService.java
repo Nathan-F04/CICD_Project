@@ -42,8 +42,10 @@ public class StocksService {
         }
     }
 
-    public void buy(String name, String stock, int shares){
-        Stocks stockSaved = new Stocks(stock,shares,name);
-        stocksRepository.save(stockSaved);
+    public void buy(String stock, int shares, String name){
+        Stocks stockEdit = stocksRepository.findStocksByStockNameAndName(stock, name);
+        int originalShares = stockEdit.getStockShares();
+        stockEdit.setStockShares(originalShares+shares);
+        stocksRepository.save(stockEdit);
     }
 }

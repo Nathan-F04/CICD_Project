@@ -95,7 +95,7 @@ public class AccountService {
         }else {
             //add to the db and remove from bal
             addBal(name, (float) -(total));
-            stockClient.createNewStocks(name);
+            stockClient.buyNewStocks(name, amount, stock);
             return ResponseEntity.ok("Stocks bought successfully");
         }
     }
