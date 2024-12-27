@@ -12,16 +12,8 @@ public class StocksController {
         this.stocksService = stocksService;
     }
 
-    @GetMapping("/getStock/{id}")
-    public ResponseEntity<Stocks> getStock(@PathVariable Long id) {
-        Stocks stocks = stocksService.returnStocksById(id);
-        return ResponseEntity.ok(stocks);
-    }
-
     //func with person name here
     //make a way to call method that finds by name make obj, get stock name and stock shares
-
-
     @GetMapping("/findStockVal/{name}")
     public double stockFindVal(@PathVariable String name) {
         return stocksService.returnByName(name);

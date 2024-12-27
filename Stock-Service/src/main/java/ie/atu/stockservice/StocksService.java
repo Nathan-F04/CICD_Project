@@ -15,10 +15,6 @@ public class StocksService {
         this.stockValueClient = stockValueClient;
     }
 
-    public Stocks returnStocksById(long id) {
-        return stocksRepository.findBystockId(id);
-    }
-
     public double returnByName(String name){
         double total =0.0;
         List<Stocks> myStocks = stocksRepository.findAllByName(name);

@@ -116,11 +116,9 @@ public class PersonService {
                 System.out.println("Passwords match");
                 return stockClient.stockFindVal(name);
             }else {
-                //return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error editing person");
                 return 0;
             }
         }else{
-            //return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Account does not exist");
             return 0;
         }
     }
