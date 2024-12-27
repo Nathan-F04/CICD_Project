@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -23,19 +25,18 @@ public class AccountService {
         this.stockValueClient = stockValueClient;
     }
 
-    public ResponseEntity<?> returnAccBal(String name) {
+    public ResponseEntity<?> viewDetailsService(String name) {
         Optional<Account> account = accountRepository.findByName(name);
         if(account.isPresent()) {
-            return ResponseEntity.ok(account);
+            Account currentAccount = account.get();
+            Map<String, String> user = new LinkedHashMap<>();
+            user.put("Name", currentAccount.getName());
+            user.put("Balance", String.valueOf(currentAccount.getBankBal()));
+            return ResponseEntity.ok(user);
         }
         else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not Found");
         }
-    }
-
-    public ResponseEntity<?> returnAccStock(String name) {
-        Optional<Account> account = accountRepository.findByName(name);
-        return ResponseEntity.ok(account);
     }
 
     public ResponseEntity<?> addBal(String name, float bankBal) {
@@ -70,7 +71,7 @@ public class AccountService {
         accountRepository.save(account);
     }
 
-    public ResponseEntity<?> deleteAcc(String name) {
+    public ResponseEntity<String> deleteAcc(String name) {
         Optional<Account> account = accountRepository.findByName(name);
         if(account.isPresent()){
             Account accountCurrent = account.get();
@@ -93,12 +94,30 @@ public class AccountService {
         double total = price * amount;
         //if total>bal return invalid transaction else write it to the db and remove money from the account
         if(total>bal){
-            return ResponseEntity.ok("You do not have the funds to purchase the entered stocks");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You do not have the funds to purchase the entered stocks");
         }else {
             //add to the db and remove from bal
             addBal(name, (float) -(total));
-            stockClient.createNewStocks(name);
+            stockClient.buyNewStocks(name, amount, stock);
             return ResponseEntity.ok("Stocks bought successfully");
+        }
+    }
+
+    public ResponseEntity<?> stockSell(String stock, int amount, String name){
+        //find stock price
+        double price = stockValueClient.portfolioFromStockVal(stock);
+        //check if you have that amount of shares
+        int sharesInAccount = stockClient.checkShares(name, stock);
+        System.out.println(sharesInAccount);
+        if(sharesInAccount<amount){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You do not have the shares to sell");
+        }else{
+            double total = price * amount;
+            //add to balance
+            addBal(name, (float) total);
+            //remove from db
+            stockClient.sellStocks(name, amount, stock);
+            return ResponseEntity.ok("Stock sold successfully");
         }
     }
 }

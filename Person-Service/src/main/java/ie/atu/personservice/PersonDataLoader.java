@@ -14,10 +14,10 @@ public class PersonDataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception{
         //Insert data here
-        Person testData1 = new Person("Paul" , "paul@atu.ie","pass1", "AIB", "1");
-        Person testData2 = new Person("Nathan" , "nathan@atu.ie","pass2", "AIB", "2");
-        Person testData3 = new Person("Shine", "shine@atu.ie","pass3", "BOI", "3");
-        Person testData4 = new Person("Bill", "bill@atu.ie","pass4", "BOI", "4");
+        Person testData1 = new Person("Paul" , "paul@atu.ie","pass1", "AIB");
+        Person testData2 = new Person("Nathan" , "nathan@atu.ie","pass2", "AIB");
+        Person testData3 = new Person("Shine", "shine@atu.ie","pass3", "BOI");
+        Person testData4 = new Person("Bill", "bill@atu.ie","pass4", "BOI");
         //save here
         personRepository.save(testData1);
         personRepository.save(testData2);

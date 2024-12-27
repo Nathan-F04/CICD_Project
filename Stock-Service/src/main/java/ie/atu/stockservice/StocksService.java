@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StocksService {
@@ -15,20 +16,19 @@ public class StocksService {
         this.stockValueClient = stockValueClient;
     }
 
-    public Stocks returnStocksById(long id) {
-        return stocksRepository.findBystockId(id);
-    }
-
-    public ResponseEntity<?> returnByName(String name){
+    public double returnByName(String name){
         double total =0.0;
         List<Stocks> myStocks = stocksRepository.findAllByName(name);
-        for(Stocks stock: myStocks){
-            int stockShares = stock.getStockShares();
-            String stockName = stock.getStockName();
-            total = total + stockShares * stockValueClient.portfolioFromStockVal(stockName);
+        if(myStocks.isEmpty()){
+            return 0;
+        }else {
+            for (Stocks stock : myStocks) {
+                int stockShares = stock.getStockShares();
+                String stockName = stock.getStockName();
+                total = total + stockShares * stockValueClient.portfolioFromStockVal(stockName);
+            }
+            return total;
         }
-
-        return ResponseEntity.ok(total);
     }
 
     public void createNewStock(String name) {
@@ -42,8 +42,33 @@ public class StocksService {
         }
     }
 
-    public void buy(String name, String stock, int shares){
-        Stocks stockSaved = new Stocks(stock,shares,name);
-        stocksRepository.save(stockSaved);
+    public void buy(String stock, int shares, String name){
+        Optional<Stocks> stockObj = stocksRepository.findStocksByStockNameAndName(stock, name);
+        if(stockObj.isPresent()){
+            Stocks stockEdit = stockObj.get();
+            int originalShares = stockEdit.getStockShares();
+            stockEdit.setStockShares(originalShares+shares);
+            stocksRepository.save(stockEdit);
+        }
+    }
+
+    public void sell(String stock, int shares, String name){
+        Optional<Stocks> stockObj = stocksRepository.findStocksByStockNameAndName(stock, name);
+        if(stockObj.isPresent()){
+            Stocks stockEdit = stockObj.get();
+            int originalShares = stockEdit.getStockShares();
+            stockEdit.setStockShares(originalShares-shares);
+            stocksRepository.save(stockEdit);
+        }
+    }
+
+    public int checkSharesService(String name, String stock){
+        Optional<Stocks> stockEdit = stocksRepository.findStocksByStockNameAndName(stock, name);
+        if(stockEdit.isPresent()){
+            Stocks currentStock = stockEdit.get();
+            return currentStock.getStockShares();
+        }else{
+            return 0;
+        }
     }
 }

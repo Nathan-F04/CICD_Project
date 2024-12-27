@@ -31,36 +31,34 @@ public class PersonController {
     }
     //sign in
     @GetMapping("/signIn/{name}/{password}")
-    public ResponseEntity<?>signIn(@Valid @PathVariable String name, @Valid @PathVariable String password) {
-        personService.signInPerson(name, password);
-        return new ResponseEntity<>("Signed in successfully", HttpStatus.OK);
+    public ResponseEntity<?>signIn(@PathVariable String name, @PathVariable String password) {
+        return personService.signInPerson(name, password);
     }
     //get request to check details
     @GetMapping("/viewProfile/{name}/{password}")
-    public ResponseEntity<?>viewProfile(@Valid @PathVariable String name, @Valid @PathVariable String password) {
-        Person person = personService.viewPersonProfile(name, password);
-        return ResponseEntity.ok(person);
+    public ResponseEntity<?>viewProfile(@PathVariable String name, @PathVariable String password) {
+        return personService.viewPersonProfile(name, password);
     }
     //Delete account
     @DeleteMapping("/removeAccount/{name}")
-    public ResponseEntity<?>RemoveAccount(@Valid @PathVariable String name){
-        return personService.DeleteAccount(name);
+    public void RemoveAccount(@PathVariable String name){
+        personService.DeleteAccount(name);
     }
     //update user details
     @PutMapping("/editProfile/{name}/{password}")
-    public ResponseEntity<?>EditProfile(@Valid @PathVariable String name, @Valid @PathVariable String password, @Valid @RequestBody Person personEdit) {
-        personService.editPersonProfile(name, password, personEdit);
-        return new ResponseEntity<>("Edited account successfully", HttpStatus.OK);
+    public ResponseEntity<?>EditProfile( @PathVariable String name,  @PathVariable String password,  @RequestBody Person personEdit) {
+        return personService.editPersonProfile(name, password, personEdit);
     }
 
     //enter a password and name
     //cal func-openfeign+mqtt
     @GetMapping("/PortfolioValue/{name}/{password}")
-    public ResponseEntity<?> portfolioValue(@Valid @PathVariable String name, @Valid @PathVariable String password){
+    public double portfolioValue( @PathVariable String name, @PathVariable String password){
         Map<String, String> userDetails = new HashMap<>();
         userDetails.put("name", name);
         userDetails.put("password", password);
-        return (ResponseEntity<?>) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, userDetails);
+        return (double) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, userDetails);
+
     }
 
 }
