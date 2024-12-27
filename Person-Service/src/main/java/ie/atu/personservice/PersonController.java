@@ -58,6 +58,7 @@ public class PersonController {
         userDetails.put("name", name);
         userDetails.put("password", password);
         return (double) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, userDetails);
+
     }
 
 }

@@ -113,7 +113,6 @@ public class PersonService {
             Person existingPerson = verifyPerson.get();
             String verifyPassword = existingPerson.getPassword();
             if (verifyPassword.equals(password)) {
-                System.out.println("Passwords match");
                 return stockClient.stockFindVal(name);
             }else {
                 return 0;
