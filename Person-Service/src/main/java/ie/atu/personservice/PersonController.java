@@ -32,14 +32,12 @@ public class PersonController {
     //sign in
     @GetMapping("/signIn/{name}/{password}")
     public ResponseEntity<?>signIn(@PathVariable String name, @PathVariable String password) {
-        personService.signInPerson(name, password);
-        return new ResponseEntity<>("Signed in successfully", HttpStatus.OK);
+        return personService.signInPerson(name, password);
     }
     //get request to check details
     @GetMapping("/viewProfile/{name}/{password}")
     public ResponseEntity<?>viewProfile(@PathVariable String name, @PathVariable String password) {
-        Person person = personService.viewPersonProfile(name, password);
-        return ResponseEntity.ok(person);
+        return personService.viewPersonProfile(name, password);
     }
     //Delete account
     @DeleteMapping("/removeAccount/{name}")
@@ -49,18 +47,17 @@ public class PersonController {
     //update user details
     @PutMapping("/editProfile/{name}/{password}")
     public ResponseEntity<?>EditProfile( @PathVariable String name,  @PathVariable String password,  @RequestBody Person personEdit) {
-        personService.editPersonProfile(name, password, personEdit);
-        return new ResponseEntity<>("Edited account successfully", HttpStatus.OK);
+        return personService.editPersonProfile(name, password, personEdit);
     }
 
     //enter a password and name
     //cal func-openfeign+mqtt
     @GetMapping("/PortfolioValue/{name}/{password}")
-    public ResponseEntity<?> portfolioValue( @PathVariable String name, @PathVariable String password){
+    public double portfolioValue( @PathVariable String name, @PathVariable String password){
         Map<String, String> userDetails = new HashMap<>();
         userDetails.put("name", name);
         userDetails.put("password", password);
-        return (ResponseEntity<?>) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, userDetails);
+        return (double) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, userDetails);
     }
 
 }

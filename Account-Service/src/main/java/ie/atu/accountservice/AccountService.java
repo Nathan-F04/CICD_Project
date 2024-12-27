@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -27,9 +29,10 @@ public class AccountService {
         Optional<Account> account = accountRepository.findByName(name);
         if(account.isPresent()) {
             Account currentAccount = account.get();
-            String userName = currentAccount.getName();
-            float userBal = currentAccount.getBankBal();
-            return ResponseEntity.ok("Name: " + userName + "\nBalance:€ " + userBal);
+            Map<String, String> user = new LinkedHashMap<>();
+            user.put("Name", currentAccount.getName());
+            user.put("Balance", String.valueOf(currentAccount.getBankBal()));
+            return ResponseEntity.ok(user);
         }
         else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not Found");

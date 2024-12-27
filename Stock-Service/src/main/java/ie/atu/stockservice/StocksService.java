@@ -1,6 +1,5 @@
 package ie.atu.stockservice;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,16 +19,17 @@ public class StocksService {
         return stocksRepository.findBystockId(id);
     }
 
-    public ResponseEntity<?> returnByName(String name){
+    public double returnByName(String name){
         double total =0.0;
         List<Stocks> myStocks = stocksRepository.findAllByName(name);
         for(Stocks stock: myStocks){
             int stockShares = stock.getStockShares();
             String stockName = stock.getStockName();
+            System.out.println(stockName);
             total = total + stockShares * stockValueClient.portfolioFromStockVal(stockName);
+            System.out.println(total);
         }
-
-        return ResponseEntity.ok(total);
+        return total;
     }
 
     public void createNewStock(String name) {

@@ -19,6 +19,7 @@ public class Person {
     private Long personId;
     @NotEmpty(message = "Name must not be blank")
     private String name;
+    @NotEmpty(message = "Email must not be blank")
     @Email(message = "Email must be in valid format")
     private String email;
     @NotEmpty(message = "Password must not be blank")

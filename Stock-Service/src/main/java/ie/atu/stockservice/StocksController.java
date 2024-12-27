@@ -23,7 +23,7 @@ public class StocksController {
 
 
     @GetMapping("/findStockVal/{name}")
-    public ResponseEntity<?> stockFindVal(@PathVariable String name) {
+    public double stockFindVal(@PathVariable String name) {
         return stocksService.returnByName(name);
     }
 
