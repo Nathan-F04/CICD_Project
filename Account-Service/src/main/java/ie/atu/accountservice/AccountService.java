@@ -68,7 +68,7 @@ public class AccountService {
         accountRepository.save(account);
     }
 
-    public ResponseEntity<?> deleteAcc(String name) {
+    public ResponseEntity<String> deleteAcc(String name) {
         Optional<Account> account = accountRepository.findByName(name);
         if(account.isPresent()){
             Account accountCurrent = account.get();

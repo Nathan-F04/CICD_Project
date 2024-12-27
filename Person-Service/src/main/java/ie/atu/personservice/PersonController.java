@@ -43,8 +43,8 @@ public class PersonController {
     }
     //Delete account
     @DeleteMapping("/removeAccount/{name}")
-    public ResponseEntity<?>RemoveAccount(@Valid @PathVariable String name){
-        return personService.DeleteAccount(name);
+    public void RemoveAccount(@Valid @PathVariable String name){
+        personService.DeleteAccount(name);
     }
     //update user details
     @PutMapping("/editProfile/{name}/{password}")

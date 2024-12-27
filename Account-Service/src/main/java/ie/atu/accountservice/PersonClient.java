@@ -12,5 +12,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name="PersonClient1", url="http://localhost:8081/person")
 public interface PersonClient {
     @DeleteMapping("/removeAccount/{name}")
-    ResponseEntity<?> RemoveAccount(@Valid @PathVariable String name);
+    void RemoveAccount(@Valid @PathVariable String name);
 }

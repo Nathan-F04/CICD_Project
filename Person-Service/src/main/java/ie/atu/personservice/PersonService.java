@@ -92,15 +92,11 @@ public class PersonService {
     }
 
     //delete
-    public ResponseEntity<?> DeleteAccount(String name) {
+    public void DeleteAccount(String name) {
         Optional<Person> person = personRepository.findByName(name);
         if(person.isPresent()){
             Person currentPerson = person.get();
             personRepository.delete(currentPerson);
-            return ResponseEntity.ok("Deleted account successfully");
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not Found");
         }
     }
 

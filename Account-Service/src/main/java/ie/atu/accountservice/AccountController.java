@@ -29,7 +29,7 @@ public class AccountController {
     }
 
     @DeleteMapping("/deleteAcc/{name}")
-    public ResponseEntity<?> deleteAcc(@PathVariable String name) {
+    public ResponseEntity<String> deleteAcc(@PathVariable String name) {
         return accountService.deleteAcc(name);
     }
 
