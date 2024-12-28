@@ -3,6 +3,7 @@ package ie.atu.personservice;
 import jakarta.validation.Valid;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,10 +54,19 @@ public class PersonController {
     //enter a password and name
     //cal func-openfeign+mqtt
     @GetMapping("/portfolioValue/{name}/{password}")
-    public double portfolioValue( @PathVariable String name, @PathVariable String password){
+    public ResponseEntity<?> portfolioValue(@PathVariable String name, @PathVariable String password){
         Map<String, String> userDetails = new HashMap<>();
         userDetails.put("name", name);
         userDetails.put("password", password);
-        return (double) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, userDetails);
+        Map<String, Object> response;
+        //handle error4
+        response = (Map<String, Object>) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, userDetails);
+        HttpStatusCode statusCode = HttpStatus.valueOf((Integer) response.get("Code"));
+        if(!response.containsKey("Balance")){
+            return ResponseEntity.status(statusCode).body(response.get("Message"));
+        }else{
+            return ResponseEntity.status(statusCode).body("Balance: " + response.get("Balance"));
+        }
+
     }
 }

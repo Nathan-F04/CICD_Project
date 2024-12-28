@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -104,20 +105,25 @@ public class PersonService {
 
     //take email and password and if correct, call other func passing the name
     @RabbitListener (queues = RabbitMQConfig.PERSON_QUEUE)
-    public double myPortfolioValue(Map<String, String> userDetails) {
+    public Map<String, Object> myPortfolioValue(Map<String, String> userDetails) {
         String name = userDetails.get("name");
         String password = userDetails.get("password");
         Optional<Person> verifyPerson = personRepository.findByName(name);
+        Map<String, Object> response = new HashMap<>();
         if(verifyPerson.isPresent()){
             Person existingPerson = verifyPerson.get();
             String verifyPassword = existingPerson.getPassword();
             if (verifyPassword.equals(password)) {
                 return stockClient.stockFindVal(name);
             }else {
-                return 0;
+                response.put("Message", "Error: Password doesn't match");
+                response.put("Code", HttpStatus.NOT_FOUND.value());
+                return response;
             }
         }else{
-            return 0;
+            response.put("Message", "Error: Person doesn't exist");
+            response.put("Code", HttpStatus.NOT_FOUND.value());
+            return response;
         }
     }
 
