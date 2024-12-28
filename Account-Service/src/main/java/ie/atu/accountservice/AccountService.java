@@ -108,7 +108,7 @@ public class AccountService {
 
     public ResponseEntity<String> deleteAcc(String name) {
         Optional<Account> account = accountRepository.findByName(name);
-        if(checkBal(name) == 0) {
+        if(checkBal(name) < 1) {
             if(account.isPresent()){
                 Account accountCurrent = account.get();
                 accountRepository.delete(accountCurrent);
