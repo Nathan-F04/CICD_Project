@@ -24,8 +24,8 @@ public class StockValueController {
     }
 
     @GetMapping("/getStockName/{stockId}")
-    public ResponseEntity<StockValue> stockNameById(@PathVariable int stockId) {
-        return ResponseEntity.ok(stockValueService.getStock(stockId));
+    public ResponseEntity<?> stockNameById(@PathVariable int stockId) {
+        return stockValueService.getStock(stockId);
     }
 
     @GetMapping("/getAllStockNames")

@@ -5,13 +5,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface StockValueRepository extends JpaRepository<StockValue, Long> {
 
     StockValue findByStockName (String stockName);
-    StockValue findByValueId(int stockId);
-
+    Optional<StockValue> findByValueId(int stockId);
     @Query("SELECT e.stockName FROM StockValue e")
     List<String> findAllColumns();
 }
