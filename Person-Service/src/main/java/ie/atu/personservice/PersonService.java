@@ -5,10 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PersonService {
@@ -133,4 +130,7 @@ public class PersonService {
         }
     }
 
+    public List<String> returnNames() {
+        return personRepository.findAllColumns();
+    }
 }

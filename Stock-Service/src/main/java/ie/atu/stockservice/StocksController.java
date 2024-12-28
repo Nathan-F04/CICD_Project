@@ -24,9 +24,9 @@ public class StocksController {
         stocksService.createNewStock(name);
     }
 
-    @PostMapping("/createNewCompanyStock/{name}")
-    public void createNewCompanyStock(@PathVariable String name) {
-        stocksService.createNewCompanyStock(name);
+    @PostMapping("/createNewCompanyStock/{stockName}")
+    public void createNewCompanyStock(@PathVariable String stockName) {
+        stocksService.createNewCompanyStock(stockName);
     }
 
     @PutMapping("/buyNewStocks/{name}/{stock}/{shares}")

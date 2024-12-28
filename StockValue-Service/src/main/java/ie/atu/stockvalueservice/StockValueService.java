@@ -12,8 +12,11 @@ public class StockValueService {
 
     private final StockValueRepository stockValueRepository;
 
-    public StockValueService(StockValueRepository stockValueRepository) {
+    private final StockClient stockClient;
+
+    public StockValueService(StockValueRepository stockValueRepository, StockClient stockClient) {
         this.stockValueRepository = stockValueRepository;
+        this.stockClient = stockClient;
     }
 
     public double portfolioResult(String stockName){
@@ -42,6 +45,7 @@ public class StockValueService {
         newCompany.setStockName(stockValue.getStockName());
         newCompany.setStockShareValue(stockValue.getStockShareValue());
         stockValueRepository.save(newCompany);
-
+        stockClient.createNewCompanyStock(newCompany.getStockName());
+        return ResponseEntity.ok("Company added successfully");
     }
 }

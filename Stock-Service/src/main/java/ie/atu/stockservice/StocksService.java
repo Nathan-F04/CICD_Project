@@ -12,9 +12,12 @@ public class StocksService {
     private final StocksRepository stocksRepository;
     private final StockValueClient stockValueClient;
 
-    public StocksService(StocksRepository stocksRepository, StockValueClient stockValueClient) {
+    private final PersonClient personClient;
+
+    public StocksService(StocksRepository stocksRepository, StockValueClient stockValueClient, PersonClient personClient) {
         this.stocksRepository = stocksRepository;
         this.stockValueClient = stockValueClient;
+        this.personClient = personClient;
     }
 
     public double returnByName(String name){
@@ -82,7 +85,14 @@ public class StocksService {
         }
     }
 
-    public void createNewCompanyStock(String name) {
-
+    public void createNewCompanyStock(String stockName) {
+        List<String> myPerson = personClient.returnNames();
+        for(String myString: myPerson) {
+            Stocks newStocks = new Stocks();
+            newStocks.setStockName(stockName);
+            newStocks.setStockShares(0);
+            newStocks.setName(myString);
+            stocksRepository.save(newStocks);
+        }
     }
 }

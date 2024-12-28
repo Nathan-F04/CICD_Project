@@ -2,11 +2,11 @@ package ie.atu.personservice;
 
 import jakarta.validation.Valid;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -57,7 +57,11 @@ public class PersonController {
         userDetails.put("name", name);
         userDetails.put("password", password);
         return (double) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, userDetails);
+    }
 
+    @GetMapping("/returnNames")
+    public List<String> returnNames(){
+        return personService.returnNames();
     }
 
 }
