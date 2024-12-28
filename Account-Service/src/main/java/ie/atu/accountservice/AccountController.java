@@ -1,6 +1,5 @@
 package ie.atu.accountservice;
 
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,5 +41,10 @@ public class AccountController {
     @PutMapping("/sellStock/{stock}/{amount}/{name}")
     public ResponseEntity<?> sellStock(@PathVariable String stock, @PathVariable int amount, @PathVariable String name){
         return accountService.stockSell(stock, amount, name);
+    }
+
+    @GetMapping("/portfolioValue/{name}/{password}")
+    public ResponseEntity<?> returnPortfolioValue(@PathVariable String name, @PathVariable String password){
+        return accountService.returnPortfolioValueService(name, password);
     }
 }

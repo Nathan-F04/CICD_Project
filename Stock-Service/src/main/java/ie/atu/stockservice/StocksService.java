@@ -1,9 +1,11 @@
 package ie.atu.stockservice;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -16,18 +18,24 @@ public class StocksService {
         this.stockValueClient = stockValueClient;
     }
 
-    public double returnByName(String name){
+    public Map<String, Object> returnByName(String name){
         double total =0.0;
+        Map<String, Object> response = new HashMap<>();
         List<Stocks> myStocks = stocksRepository.findAllByName(name);
         if(myStocks.isEmpty()){
-            return 0;
+            response.put("Message", "Error: No stocks found");
+            response.put("Code", HttpStatus.BAD_REQUEST.value());
+            return response;
         }else {
             for (Stocks stock : myStocks) {
                 int stockShares = stock.getStockShares();
                 String stockName = stock.getStockName();
                 total = total + stockShares * stockValueClient.portfolioFromStockVal(stockName);
             }
-            return total;
+            //return ResponseEntity.ok(total);
+            response.put("Balance", total);
+            response.put("Code", HttpStatus.OK.value());
+            return response;
         }
     }
 

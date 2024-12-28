@@ -1,7 +1,8 @@
 package ie.atu.stockservice;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/stock")
@@ -15,7 +16,7 @@ public class StocksController {
     //func with person name here
     //make a way to call method that finds by name make obj, get stock name and stock shares
     @GetMapping("/findStockVal/{name}")
-    public double stockFindVal(@PathVariable String name) {
+    public Map<String, Object> stockFindVal(@PathVariable String name) {
         return stocksService.returnByName(name);
     }
 
