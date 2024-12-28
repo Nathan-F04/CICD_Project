@@ -55,7 +55,13 @@ public class AccountService {
             }
         }
         else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cannot add a negative value");
+            Optional<Account> account = accountRepository.findByName(name);
+            if(account.isPresent()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cannot add a negative value");
+            }
+            else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not Found");
+            }
         }
     }
 
@@ -74,7 +80,13 @@ public class AccountService {
             }
         }
         else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cannot withdraw more than you have in your account");
+            Optional<Account> account = accountRepository.findByName(name);
+            if(account.isPresent()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cannot withdraw more than you have in your account");
+            }
+            else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not Found");
+            }
         }
     }
 
