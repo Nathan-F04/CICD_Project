@@ -39,4 +39,9 @@ public class StocksController {
         return stocksService.checkSharesService(name,stock);
     }
 
+    @DeleteMapping("/deleteStocks/{name}")
+    public void deleteStocks(@PathVariable String name){
+        stocksService.deleteStocks(name);
+    }
+
 }

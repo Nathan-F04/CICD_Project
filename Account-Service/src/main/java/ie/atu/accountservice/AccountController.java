@@ -24,6 +24,11 @@ public class AccountController {
         return accountService.addBal(name, bankBal);
     }
 
+    @PutMapping("/decreaseBal/{name}/{bankBal}")
+    public ResponseEntity<?> decreaseBal(@PathVariable String name, @PathVariable float bankBal){
+        return accountService.removeBal(name, bankBal);
+    }
+
     @PostMapping("/createAcc/{name}")
     public void createAcc(@PathVariable String name) {
         accountService.createAcc(name);

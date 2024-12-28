@@ -1,5 +1,6 @@
 package ie.atu.stockservice;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,8 @@ public class StocksService {
         List<Stocks> myStocks = stocksRepository.findAllByName(name);
         if(myStocks.isEmpty()){
             return 0;
-        }else {
+        }
+        else {
             for (Stocks stock : myStocks) {
                 int stockShares = stock.getStockShares();
                 String stockName = stock.getStockName();
@@ -67,8 +69,16 @@ public class StocksService {
         if(stockEdit.isPresent()){
             Stocks currentStock = stockEdit.get();
             return currentStock.getStockShares();
-        }else{
+        }
+        else{
             return 0;
+        }
+    }
+
+    public void deleteStocks(String name) {
+        List<Stocks> stockEdit = stocksRepository.findAllByName(name);
+        if(!stockEdit.isEmpty()){
+            stocksRepository.deleteAll(stockEdit);
         }
     }
 }
