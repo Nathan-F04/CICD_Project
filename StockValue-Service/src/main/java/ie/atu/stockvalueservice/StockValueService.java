@@ -36,4 +36,12 @@ public class StockValueService {
     public List<String> getColumnNames() {
         return stockValueRepository.findAllColumns();
     }
+
+    public ResponseEntity<?> addCompany(StockValue stockValue) {
+        StockValue newCompany = new StockValue();
+        newCompany.setStockName(stockValue.getStockName());
+        newCompany.setStockShareValue(stockValue.getStockShareValue());
+        stockValueRepository.save(newCompany);
+
+    }
 }

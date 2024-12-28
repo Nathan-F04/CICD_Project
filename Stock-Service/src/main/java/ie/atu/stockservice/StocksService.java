@@ -81,4 +81,8 @@ public class StocksService {
             stocksRepository.deleteAll(stockEdit);
         }
     }
+
+    public void createNewCompanyStock(String name) {
+
+    }
 }

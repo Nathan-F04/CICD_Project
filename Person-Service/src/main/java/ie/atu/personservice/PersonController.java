@@ -26,17 +26,16 @@ public class PersonController {
     //sign up
     @PostMapping("/signUp")
     public ResponseEntity<?>signUp(@Valid @RequestBody Person person) {
-        personService.signUpPerson(person);
-        return new ResponseEntity<>("Signed up successfully", HttpStatus.OK);
+        return personService.signUpPerson(person);
     }
     //sign in
     @GetMapping("/signIn/{name}/{password}")
-    public ResponseEntity<?>signIn(@PathVariable String name, @PathVariable String password) {
+    public ResponseEntity<?> signIn(@PathVariable String name, @PathVariable String password) {
         return personService.signInPerson(name, password);
     }
     //get request to check details
     @GetMapping("/viewProfile/{name}/{password}")
-    public ResponseEntity<?>viewProfile(@PathVariable String name, @PathVariable String password) {
+    public ResponseEntity<?> viewProfile(@PathVariable String name, @PathVariable String password) {
         return personService.viewPersonProfile(name, password);
     }
     //Delete account
@@ -46,7 +45,7 @@ public class PersonController {
     }
     //update user details
     @PutMapping("/editProfile/{name}/{password}")
-    public ResponseEntity<?>EditProfile( @PathVariable String name,  @PathVariable String password,  @RequestBody Person personEdit) {
+    public ResponseEntity<?> EditProfile( @PathVariable String name,  @PathVariable String password,  @RequestBody Person personEdit) {
         return personService.editPersonProfile(name, password, personEdit);
     }
 

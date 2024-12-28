@@ -26,11 +26,22 @@ public class PersonService {
 
     //Actually get the requests done here
     //sign up
-    public void signUpPerson(Person person) {
+    public ResponseEntity<?> signUpPerson(Person person) {
         //save person to db to sign them up
-        personRepository.save(person);
-        stockClient.createNewStocks(person.getName());
-        accountClient.createAcc(person.getName());
+        Optional<Person> verifyPerson = personRepository.findByName(person.getName());
+        Optional<Person> verifyPerson1 = personRepository.findByEmail(person.getEmail());
+        if(verifyPerson.isPresent()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("UserName is already in use");
+        }
+        else if(verifyPerson1.isPresent()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("An account is already linked to the provided email");
+        }
+        else {
+            personRepository.save(person);
+            stockClient.createNewStocks(person.getName());
+            accountClient.createAcc(person.getName());
+            return ResponseEntity.ok("Account created successfully");
+        }
     }
     //sign in
     public ResponseEntity<?> signInPerson(String name, String password) {
