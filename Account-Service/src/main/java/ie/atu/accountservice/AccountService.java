@@ -41,8 +41,8 @@ public class AccountService {
     }
 
     public ResponseEntity<?> addBal(String name, float bankBal) {
+        Optional<Account> account = accountRepository.findByName(name);
         if(bankBal >= 0) {
-            Optional<Account> account = accountRepository.findByName(name);
             if(account.isPresent()) {
                 Account accountCurrent = account.get();
                 float bal = accountCurrent.getBankBal() + bankBal;
@@ -55,13 +55,18 @@ public class AccountService {
             }
         }
         else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cannot add a negative value");
+            if(account.isPresent()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cannot add a negative value");
+            }
+            else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not Found");
+            }
         }
     }
 
     public ResponseEntity<?> removeBal(String name, float bankBal) {
+        Optional<Account> account = accountRepository.findByName(name);
         if(bankBal <= checkBal(name) && bankBal >= 0) {
-            Optional<Account> account = accountRepository.findByName(name);
             if(account.isPresent()) {
                 Account accountCurrent = account.get();
                 float bal = accountCurrent.getBankBal() - bankBal;
@@ -74,7 +79,12 @@ public class AccountService {
             }
         }
         else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cannot withdraw more than you have in your account");
+            if(account.isPresent()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cannot withdraw more than you have in your account");
+            }
+            else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not Found");
+            }
         }
     }
 
@@ -97,8 +107,8 @@ public class AccountService {
     }
 
     public ResponseEntity<String> deleteAcc(String name) {
-        if(checkBal(name) == 0) {
-            Optional<Account> account = accountRepository.findByName(name);
+        Optional<Account> account = accountRepository.findByName(name);
+        if(checkBal(name) < 1) {
             if(account.isPresent()){
                 Account accountCurrent = account.get();
                 accountRepository.delete(accountCurrent);
@@ -111,7 +121,12 @@ public class AccountService {
             }
         }
         else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You still have funds in your account, please withdraw them first.");
+            if(account.isPresent()){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You still have funds in your account, please withdraw them first and make sure to sell your stocks or they will be lost.");
+            }
+            else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not Found");
+            }
         }
     }
 
