@@ -1,6 +1,7 @@
 package ie.atu.stockservice;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -13,9 +14,12 @@ public class StocksService {
     private final StocksRepository stocksRepository;
     private final StockValueClient stockValueClient;
 
-    public StocksService(StocksRepository stocksRepository, StockValueClient stockValueClient) {
+    private final PersonClient personClient;
+
+    public StocksService(StocksRepository stocksRepository, StockValueClient stockValueClient, PersonClient personClient) {
         this.stocksRepository = stocksRepository;
         this.stockValueClient = stockValueClient;
+        this.personClient = personClient;
     }
 
     public Map<String, Object> returnByName(String name){
@@ -75,8 +79,27 @@ public class StocksService {
         if(stockEdit.isPresent()){
             Stocks currentStock = stockEdit.get();
             return currentStock.getStockShares();
-        }else{
+        }
+        else{
             return 0;
+        }
+    }
+
+    public void deleteStocks(String name) {
+        List<Stocks> stockEdit = stocksRepository.findAllByName(name);
+        if(!stockEdit.isEmpty()){
+            stocksRepository.deleteAll(stockEdit);
+        }
+    }
+
+    public void createNewCompanyStock(String stockName) {
+        List<String> myPerson = personClient.returnNames();
+        for(String myString: myPerson) {
+            Stocks newStocks = new Stocks();
+            newStocks.setStockName(stockName);
+            newStocks.setStockShares(0);
+            newStocks.setName(myString);
+            stocksRepository.save(newStocks);
         }
     }
 }

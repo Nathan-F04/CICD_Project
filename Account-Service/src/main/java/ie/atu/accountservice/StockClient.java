@@ -2,10 +2,7 @@ package ie.atu.accountservice;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name="Stock-Client", url="http://localhost:8082/stock")
 public interface StockClient {
@@ -24,5 +21,8 @@ public interface StockClient {
 
     @GetMapping("/checkShares/{name}/{stock}")
     int checkShares(@PathVariable String name, @PathVariable String stock);
+
+    @DeleteMapping("/deleteStocks/{name}")
+    void deleteStocks(@PathVariable String name);
 
 }

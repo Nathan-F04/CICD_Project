@@ -25,6 +25,11 @@ public class StocksController {
         stocksService.createNewStock(name);
     }
 
+    @PostMapping("/createNewCompanyStock/{stockName}")
+    public void createNewCompanyStock(@PathVariable String stockName) {
+        stocksService.createNewCompanyStock(stockName);
+    }
+
     @PutMapping("/buyNewStocks/{name}/{stock}/{shares}")
     public void buyNewStocks(@PathVariable String name, @PathVariable int shares, @PathVariable String stock){
         stocksService.buy(stock, shares, name);
@@ -38,6 +43,11 @@ public class StocksController {
     @GetMapping("/checkShares/{name}/{stock}")
     int checkShares(@PathVariable String name, @PathVariable String stock){
         return stocksService.checkSharesService(name,stock);
+    }
+
+    @DeleteMapping("/deleteStocks/{name}")
+    public void deleteStocks(@PathVariable String name){
+        stocksService.deleteStocks(name);
     }
 
 }
