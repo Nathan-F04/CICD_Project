@@ -1,6 +1,7 @@
 package ie.atu.accountservice;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -118,6 +119,16 @@ public class AccountService {
             //remove from db
             stockClient.sellStocks(name, amount, stock);
             return ResponseEntity.ok("Stock sold successfully");
+        }
+    }
+
+    public ResponseEntity<?> returnPortfolioValueService(String name, String password) {
+        Map<String, Object> response = personClient.portfolioValue(name, password);
+        HttpStatusCode statusCode = HttpStatus.valueOf((Integer) response.get("Code"));
+        if(!response.containsKey("Balance")){
+            return ResponseEntity.status(statusCode).body(response.get("Message"));
+        }else{
+            return ResponseEntity.status(statusCode).body("Balance: " + response.get("Balance"));
         }
     }
 }

@@ -54,19 +54,13 @@ public class PersonController {
     //enter a password and name
     //cal func-openfeign+mqtt
     @GetMapping("/portfolioValue/{name}/{password}")
-    public ResponseEntity<?> portfolioValue(@PathVariable String name, @PathVariable String password){
+    public Map<String, Object> portfolioValue(@PathVariable String name, @PathVariable String password){
         Map<String, String> userDetails = new HashMap<>();
         userDetails.put("name", name);
         userDetails.put("password", password);
         Map<String, Object> response;
         //handle error4
         response = (Map<String, Object>) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, userDetails);
-        HttpStatusCode statusCode = HttpStatus.valueOf((Integer) response.get("Code"));
-        if(!response.containsKey("Balance")){
-            return ResponseEntity.status(statusCode).body(response.get("Message"));
-        }else{
-            return ResponseEntity.status(statusCode).body("Balance: " + response.get("Balance"));
-        }
-
+        return response;
     }
 }

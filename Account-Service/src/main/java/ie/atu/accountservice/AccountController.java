@@ -42,4 +42,9 @@ public class AccountController {
     public ResponseEntity<?> sellStock(@PathVariable String stock, @PathVariable int amount, @PathVariable String name){
         return accountService.stockSell(stock, amount, name);
     }
+
+    @GetMapping("/portfolioValue/{name}/{password}")
+    public ResponseEntity<?> returnPortfolioValue(@PathVariable String name, @PathVariable String password){
+        return accountService.returnPortfolioValueService(name, password);
+    }
 }
