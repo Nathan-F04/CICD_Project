@@ -37,4 +37,9 @@ public class GlobalErrorHandler {
     {
         return ResponseEntity.status(406).body("Wrong type entered");
     }
+
+    @ExceptionHandler(ClassCastException.class)
+    public ResponseEntity<?> uncheckedCast(){
+        return ResponseEntity.status(406).body("Invalid type passed");
+    }
 }
