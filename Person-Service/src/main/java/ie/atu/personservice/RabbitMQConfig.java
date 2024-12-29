@@ -13,6 +13,7 @@ public class RabbitMQConfig {
 
     //queues constants
     public static final String PERSON_QUEUE = "personQueue";
+
     public static final String EXCHANGE = "personExchange";
     public static final String ROUTING_KEY = "person_routingKey";
 

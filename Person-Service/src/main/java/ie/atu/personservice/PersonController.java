@@ -52,16 +52,30 @@ public class PersonController {
     //enter a password and name
     //cal func-openfeign+mqtt
     @GetMapping("/portfolioValue/{name}/{password}")
-    public Map<String, Object> portfolioValue(@PathVariable String name, @PathVariable String password){
+    public Map<String, Object> portfolioValue(@PathVariable String name, @PathVariable String password) throws IllegalStateException {
         Map<String, String> userDetails = new HashMap<>();
         userDetails.put("name", name);
         userDetails.put("password", password);
-        Map<String, Object> response;
-        //handle error4
-        response = (Map<String, Object>) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, userDetails);
-        return response;
-    }
+        //handle error
 
+        //response = (Map<String, Object>) template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, userDetails);
+        //return response;
+
+        Object response = template.convertSendAndReceive(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, userDetails);
+
+        if (response instanceof Map<?, ?>) {
+            // Verify the types of the keys and values if necessary
+            try {
+                @SuppressWarnings("unchecked") // Suppress unchecked cast warning
+                Map<String, Object> typedResponse = (Map<String, Object>) response;
+                return typedResponse;
+            } catch (ClassCastException e) {
+                throw new IllegalStateException("Invalid response format: expected Map<String, Object>", e);
+            }
+        } else {
+            throw new IllegalStateException("Invalid response type: expected a Map but got " + response.getClass());
+        }
+    }
     @GetMapping("/returnNames")
     public List<String> returnNames(){
         return personService.returnNames();
