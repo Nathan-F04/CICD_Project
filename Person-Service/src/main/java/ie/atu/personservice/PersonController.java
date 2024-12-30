@@ -45,7 +45,7 @@ public class PersonController {
     }
     //update user details
     @PutMapping("/editProfile/{name}/{password}")
-    public ResponseEntity<?> EditProfile( @PathVariable String name,  @PathVariable String password,  @RequestBody Person personEdit) {
+    public ResponseEntity<?> EditProfile( @PathVariable String name,  @PathVariable String password,  @Valid @RequestBody Person personEdit) {
         return personService.editPersonProfile(name, password, personEdit);
     }
 

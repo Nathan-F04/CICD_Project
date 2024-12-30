@@ -4,6 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.Map;
 
@@ -19,4 +20,7 @@ public interface StockClient {
 
     @PostMapping("/buyNewStocks/{name}/{stock}/{shares}")
     void buyNewStocks(@PathVariable String name, @PathVariable String stock, @PathVariable int shares);
+
+    @PutMapping("/swapDetails/{oldName}/{newName}")
+    void swapStockDetails(@PathVariable String oldName, @PathVariable String newName);
 }

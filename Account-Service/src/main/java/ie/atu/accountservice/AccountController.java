@@ -18,6 +18,11 @@ public class AccountController {
         return accountService.viewDetailsService(name);
     }
 
+    @PutMapping("/swap/{oldName}/{newName}")
+    public void swapDetails(@PathVariable String oldName, @PathVariable String newName){
+        accountService.swapService(oldName, newName);
+    }
+
     @PutMapping("/increaseBal/{name}/{bankBal}")
     public ResponseEntity<?> increaseBal(@PathVariable String name, @PathVariable float bankBal) {
         return accountService.addBal(name, bankBal);

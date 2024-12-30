@@ -1,7 +1,6 @@
 package ie.atu.stockservice;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -100,6 +99,15 @@ public class StocksService {
             newStocks.setStockShares(0);
             newStocks.setName(myString);
             stocksRepository.save(newStocks);
+        }
+    }
+
+    public void swapStockDetailsService(String oldName, String newName){
+        List<Stocks> myStockList = stocksRepository.findAllByName(oldName);
+
+        for(Stocks myObj: myStockList) {
+            myObj.setName(newName);
+            stocksRepository.save(myObj);
         }
     }
 }
