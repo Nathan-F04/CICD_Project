@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Map;
 
-@FeignClient(name="PersonClient1", url="http://localhost:8081/person")
+@FeignClient(name="Person-Client-1", url="http://localhost:8081/person")
 public interface PersonClient {
     @DeleteMapping("/removeAccount/{name}")
     void RemoveAccount(@PathVariable String name);

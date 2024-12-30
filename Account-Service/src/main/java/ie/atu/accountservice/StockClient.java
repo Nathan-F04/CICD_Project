@@ -4,7 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name="Stock-Client", url="http://localhost:8082/stock")
+@FeignClient(name="Stock-Client-2", url="http://localhost:8082/stock")
 public interface StockClient {
 
     @GetMapping("/findStockVal/{name}")
