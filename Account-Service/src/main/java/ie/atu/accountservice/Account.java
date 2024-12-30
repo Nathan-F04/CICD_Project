@@ -20,7 +20,7 @@ public class Account {
     private long personId;
     @NotEmpty(message = "Name can not be empty")
     private String name;
-    @Min(0)
+    @Min(value = 0, message = "bankBal can't be less than 0")
     private float bankBal;
 
     public Account(String name, float bankBal) {

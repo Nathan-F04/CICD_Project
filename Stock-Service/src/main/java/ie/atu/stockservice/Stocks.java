@@ -17,11 +17,11 @@ public class Stocks {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "stockId can't be a null value.")
     private long stockId;
-    @NotEmpty(message = "stockName can't be empty.")
+    @NotEmpty(message = "No stockName provided.")
     private String stockName;
     @NotNull(message = "stockShares can't be a null value.")
     private int stockShares;
-    @NotNull(message = "personId can't be a null value.")
+    @NotEmpty(message = "No name provided.")
     private String name;
 
     public Stocks(String stockName, int stockShares, String name) {
