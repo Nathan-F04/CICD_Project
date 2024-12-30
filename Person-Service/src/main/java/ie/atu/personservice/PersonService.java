@@ -34,7 +34,12 @@ public class PersonService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("An account is already linked to the provided email");
         }
         else {
-            personRepository.save(person);
+            Person newPerson = new Person();
+            newPerson.setName(person.getName());
+            newPerson.setPassword(person.getPassword());
+            newPerson.setEmail(person.getEmail());
+            newPerson.setBankDetails(person.getBankDetails());
+            personRepository.save(newPerson);
             stockClient.createNewStocks(person.getName());
             accountClient.createAcc(person.getName());
             return ResponseEntity.ok("Account created successfully");

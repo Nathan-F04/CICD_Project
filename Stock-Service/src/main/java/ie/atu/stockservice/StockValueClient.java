@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 //on port 8082
-@FeignClient(name="StockValue-Client", url="http://localhost:8083/stockValue")
+@FeignClient(name="StockValue-Client-1", url="http://localhost:8083/stockValue")
 public interface StockValueClient {
 
     @GetMapping("/getStockVal/{stockName}")

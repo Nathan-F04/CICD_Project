@@ -24,14 +24,14 @@ public class StockValueService {
         return stockValue.getStockShareValue();
     }
 
-    public ResponseEntity<?> getStock(int stockId) {
-        Optional<StockValue> stockValue = stockValueRepository.findByValueId(stockId);
+    public ResponseEntity<?> getStock(long valueId) {
+        Optional<StockValue> stockValue = stockValueRepository.findByValueId(valueId);
         if(stockValue.isPresent()){
             StockValue currentStockValue = stockValue.get();
             return ResponseEntity.ok(currentStockValue);
         }
         else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No stock found with the id: " + stockId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No stock found with the id: " + valueId);
         }
 
     }
