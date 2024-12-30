@@ -17,7 +17,6 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@NotNull(message = "Id must not be blank")
     private Long personId;
     @NotEmpty(message = "Name must not be blank")
     private String name;
