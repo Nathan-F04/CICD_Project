@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface StockValueRepository extends JpaRepository<StockValue, Long> {
 
     StockValue findByStockName (String stockName);
-    Optional<StockValue> findByValueId(int stockId);
+    Optional<StockValue> findByValueId(long valueId);
     @Query("SELECT e.stockName FROM StockValue e")
     List<String> findAllColumns();
 }

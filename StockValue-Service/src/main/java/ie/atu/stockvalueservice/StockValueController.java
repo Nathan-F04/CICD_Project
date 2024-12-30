@@ -21,9 +21,9 @@ public class StockValueController {
         return stockValueService.portfolioResult(stockName);
     }
 
-    @GetMapping("/getStockName/{stockId}")
-    public ResponseEntity<?> stockNameById(@PathVariable int stockId) {
-        return stockValueService.getStock(stockId);
+    @GetMapping("/getStockName/{valueId}")
+    public ResponseEntity<?> stockNameById(@PathVariable long valueId) {
+        return stockValueService.getStock(valueId);
     }
 
     @GetMapping("/getAllStockNames")
