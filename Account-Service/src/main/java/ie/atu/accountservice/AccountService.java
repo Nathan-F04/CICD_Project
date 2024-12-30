@@ -151,7 +151,7 @@ public class AccountService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You do not have the funds to purchase the entered stocks");
         }else {
             //add to the db and remove from bal
-            addBal(name, (float) -(total));
+            removeBal(name, (float) (total));
             stockClient.buyNewStocks(name, amount, stock);
             return ResponseEntity.ok("Stocks bought successfully");
         }
