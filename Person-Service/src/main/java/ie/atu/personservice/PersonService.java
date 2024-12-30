@@ -93,7 +93,7 @@ public class PersonService {
                 existingPerson.setBankDetails(personEdit.getBankDetails());
                 personRepository.save(existingPerson);
                 //find all stocks owned by user and set name again
-
+                stockClient.swapStockDetails(name, personEdit.getName());
                 //set account to different name as well
                 accountClient.swapDetails(name, personEdit.getName());
                 return ResponseEntity.ok("Account edited successfully");

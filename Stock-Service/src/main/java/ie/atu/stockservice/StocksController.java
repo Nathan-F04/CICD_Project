@@ -50,4 +50,9 @@ public class StocksController {
         stocksService.deleteStocks(name);
     }
 
+    @PutMapping("/swapDetails/{oldName}/{newName}")
+    public void swapStockDetails(@PathVariable String oldName, @PathVariable String newName){
+        stocksService.swapStockDetailsService(oldName, newName);
+    }
+
 }
