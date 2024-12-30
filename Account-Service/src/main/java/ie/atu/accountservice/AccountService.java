@@ -106,6 +106,15 @@ public class AccountService {
         accountRepository.save(account);
     }
 
+    public void swapService(String oldName, String newName){
+        Optional<Account> changedUser = accountRepository.findByName(oldName);
+        if(changedUser.isPresent()){
+            Account account = changedUser.get();
+            account.setName(newName);
+            accountRepository.save(account);
+        }
+    }
+
     public ResponseEntity<String> deleteAcc(String name) {
         Optional<Account> account = accountRepository.findByName(name);
         if(checkBal(name) < 1) {
